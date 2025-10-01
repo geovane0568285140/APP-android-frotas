@@ -1,4 +1,4 @@
-package com.example.appfrotas.viewmodel
+package com.example.appfrotas.view.viewmodel
 
 import androidx.lifecycle.ViewModel
 
