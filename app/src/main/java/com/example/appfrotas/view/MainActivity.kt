@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            App()
+            MainScreen()
 
             /*        val loginViewModel: LoginViewModel by viewModels()
                    val isLoggedIn: Boolean by loginViewModel.isLoggedIn.collectAsState()
