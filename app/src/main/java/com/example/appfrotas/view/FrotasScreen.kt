@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun FrotasScreen(){
-    Column(modifier = Modifier.fillMaxSize()) {
-        Text("sla", style = MaterialTheme.typography.titleLarge)
-    }
+        Column(modifier = Modifier.fillMaxSize()) {
+            Text("sla", style = MaterialTheme.typography.titleLarge)
+        }
 }

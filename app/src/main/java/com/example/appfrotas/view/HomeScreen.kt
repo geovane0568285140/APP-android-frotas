@@ -37,21 +37,28 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController) {
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
+
+    var text by remember { mutableStateOf("") }
 
     val chegadas = listOf("01/10", "02/10", "03/10", "04/10")
     val saidas = listOf("01/10", "02/10", "03/10", "04/10", "05/10")
@@ -245,8 +252,8 @@ fun HomeScreen() {
     ) {
         // Barra de pesquisa logo abaixo
         OutlinedTextField(
-            value = "",
-            onValueChange = { /* estado */ },
+            value = text,
+            onValueChange = { textNew -> text = textNew},
             label = { Text("Pesquisar...") },
             modifier = Modifier
                 .fillMaxWidth()
@@ -259,9 +266,9 @@ fun HomeScreen() {
                 .padding(top = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp) // espaço entre os botões
         ) {
-            // Botão de Cadastro
+            // Button de Register
             Button(
-                onClick = { /* ação de cadastro */ },
+                onClick = {  },
                 modifier = Modifier
                     .weight(1f), // divide o espaço igualmente
                 shape = RoundedCornerShape(50) // deixa redondo
@@ -275,9 +282,9 @@ fun HomeScreen() {
                 Text("Chegada")
             }
 
-            // Botão de Saída
+            // Button de Exit
             Button(
-                onClick = { /* ação de saída */ },
+                onClick = { navController.navigate("created_exit") },
                 modifier = Modifier
                     .weight(1f),
                 shape = RoundedCornerShape(50)

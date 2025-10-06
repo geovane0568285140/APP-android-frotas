@@ -58,10 +58,9 @@ fun MainScreen() {
 
                     Spacer(Modifier.padding(16.dp))
 
-                    DrawerItem("Home") {navController.navigate("Home")}
-                    DrawerItem("Frotas") {navController.navigate("Frotas")}
-                    DrawerItem("Usuários") { }
-
+                    DrawerItem("Home") { navController.navigate("home") }
+                    DrawerItem("Frotas") { navController.navigate("frotas") }
+                    DrawerItem("Usuário") { navController.navigate("user") }
                 }
             }
         }
@@ -83,16 +82,17 @@ fun MainScreen() {
                     }
                 )
             }
-        ) {
-            innerPadding ->
+        ) { innerPadding ->
             NavHost(
                 navController = navController,
                 startDestination = "Home",
                 modifier = Modifier.padding(innerPadding)
-            ){
-                composable("Home"){HomeScreen()}
-                composable("Frotas"){FrotasScreen()}
-                composable("opção 2"){}
+            ) {
+                composable("home") { HomeScreen(navController) }
+                composable("frotas") { FrotasScreen() }
+                composable("user") { UserScreen() }
+                composable("created_exit") { ExitScreen(navController) }
+                composable("created_arrival") { ArrivalScreen(navController) }
             }
         }
     }

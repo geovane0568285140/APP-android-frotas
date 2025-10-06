@@ -18,6 +18,6 @@ import androidx.navigation.compose.rememberNavController
                     )
                 })
             }
-            composable("Home") {HomeScreen()}
+            composable("Home") {HomeScreen(navController)}
         }
     }
