@@ -1,4 +1,4 @@
-package com.example.appfrotas.view
+package com.example.appfrotas.view.screens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -29,6 +29,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.appfrotas.view.screens.user.UserScreen
+import com.example.appfrotas.view.screens.drawerItem.DrawerItem
+import com.example.appfrotas.view.screens.movements.ArrivalScreen
+import com.example.appfrotas.view.screens.movements.ExitScreen
+import com.example.appfrotas.view.screens.frotas.FrotasScreen
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)

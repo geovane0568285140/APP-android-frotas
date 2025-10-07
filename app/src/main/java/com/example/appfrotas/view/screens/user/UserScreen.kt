@@ -1,4 +1,4 @@
-package com.example.appfrotas.view
+package com.example.appfrotas.view.screens.user
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

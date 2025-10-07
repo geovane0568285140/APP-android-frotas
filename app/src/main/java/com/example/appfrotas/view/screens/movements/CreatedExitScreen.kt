@@ -1,4 +1,4 @@
-package com.example.appfrotas.view
+package com.example.appfrotas.view.screens.movements
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -14,7 +14,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -34,13 +33,12 @@ import androidx.navigation.NavController
 @Composable
 fun ExitScreen(navController: NavController) {
 
-    var textRegister by remember { mutableStateOf("") }
     var textCar by remember { mutableStateOf("") }
     var numKm by remember { mutableStateOf("") }
     var textObservation by remember { mutableStateOf("") }
 
     //apagar depois, apenas por agora ate conectar api
-    val chegadas = listOf("01/10", "02/10", "03/10", "04/10")
+    val saidas = listOf("01/10", "02/10", "03/10", "04/10")
 
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -51,7 +49,7 @@ fun ExitScreen(navController: NavController) {
             label = { Text("KM do veiculo") },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(6.dp),
+                .padding(8.dp),
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Number
             )
@@ -64,12 +62,11 @@ fun ExitScreen(navController: NavController) {
             label = { Text("Pesquisar frotas...") },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(6.dp)
+                .padding(8.dp)
         )
 
 
-
-        chegadas.forEach { data ->
+        saidas.forEach { data ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(vertical = 4.dp)
@@ -91,17 +88,6 @@ fun ExitScreen(navController: NavController) {
             }
         }
 
-        Spacer(modifier = Modifier.height(10.dp))
-
-        Button(
-            onClick = { navController.navigate("home") },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Enviar Chegada")
-        }
-
-        Spacer(modifier = Modifier.height(10.dp))
-
         OutlinedTextField(
             value = textObservation,
             onValueChange = { textNew -> textObservation = textNew },
@@ -109,8 +95,20 @@ fun ExitScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(360.dp)
-                .padding(6.dp)
+                .padding(8.dp)
         )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Button(
+            onClick = { navController.navigate("home") },
+            modifier = Modifier.fillMaxWidth().padding(8.dp)
+        ) {
+            Text("Enviar Saida")
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+
 
     }
 }

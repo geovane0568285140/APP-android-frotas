@@ -1,4 +1,4 @@
-package com.example.appfrotas.view
+package com.example.appfrotas.view.screens.drawerItem
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
