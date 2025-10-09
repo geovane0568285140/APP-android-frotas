@@ -97,8 +97,6 @@ fun ArrivalScreen(navController: NavController) {
                             ),
                         contentAlignment = Alignment.Center,
                     ) {
-
-
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ExitToApp,
                             contentDescription = "saida",

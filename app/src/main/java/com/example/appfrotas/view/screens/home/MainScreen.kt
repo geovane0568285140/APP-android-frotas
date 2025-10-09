@@ -31,6 +31,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.appfrotas.view.screens.user.UserScreen
 import com.example.appfrotas.view.screens.drawerItem.DrawerItem
+import com.example.appfrotas.view.screens.frotas.FrotaRegisterScreen
 import com.example.appfrotas.view.screens.movements.ArrivalScreen
 import com.example.appfrotas.view.screens.movements.ExitScreen
 import com.example.appfrotas.view.screens.frotas.FrotasScreen
@@ -94,10 +95,11 @@ fun MainScreen() {
                 modifier = Modifier.padding(innerPadding)
             ) {
                 composable("home") { HomeScreen(navController) }
-                composable("frotas") { FrotasScreen() }
+                composable("frotas") { FrotasScreen(navController) }
                 composable("user") { UserScreen() }
                 composable("created_exit") { ExitScreen(navController) }
                 composable("created_arrival") { ArrivalScreen(navController) }
+                composable("Register-frotas") { FrotaRegisterScreen() }
             }
         }
     }
