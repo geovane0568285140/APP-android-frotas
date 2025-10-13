@@ -1,4 +1,4 @@
-package com.example.appfrotas.repository
+package com.example.appfrotas.remote.repository
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

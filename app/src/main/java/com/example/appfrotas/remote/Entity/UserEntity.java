@@ -1,4 +1,4 @@
-package com.example.appfrotas.Entity;
+package com.example.appfrotas.remote.Entity;
 
 public class UserEntity {
 

@@ -2,15 +2,12 @@ package com.example.appfrotas.view.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.appfrotas.repository.RetrofitClient
-import com.example.appfrotas.serviceRetrofit.AuthRequest
-import com.example.appfrotas.serviceRetrofit.AuthResponse
-import com.example.appfrotas.serviceRetrofit.AuthService
+import com.example.appfrotas.remote.repository.RetrofitClient
+import com.example.appfrotas.remote.serviceRetrofit.AuthRequest
+import com.example.appfrotas.remote.serviceRetrofit.AuthService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Response
 
 class LoginViewModel : ViewModel() {
 
