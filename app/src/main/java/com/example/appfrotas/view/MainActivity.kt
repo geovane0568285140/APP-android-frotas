@@ -16,6 +16,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.appfrotas.view.screens.home.MainScreen
+import com.example.appfrotas.view.screens.login.DoLogin
 import com.example.appfrotas.view.viewmodel.ActivityViewModel
 import com.example.appfrotas.view.viewmodel.LoginViewModel
 
@@ -34,57 +36,19 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MainScreen()
 
-            /*        val loginViewModel: LoginViewModel by viewModels()
-                   val isLoggedIn: Boolean by loginViewModel.isLoggedIn.collectAsState()
 
-                  if (isLoggedIn) {
-                       Home()
-                   } else {
-                       DoLogin(loginViewModel)
-                   } */
+            val loginViewModel: LoginViewModel by viewModels()
+            val isLoggedIn: Boolean by loginViewModel.isLoggedIn.collectAsState()
 
-        }
-    }
-
-    @Composable
-    fun Home() {
-    }
-
-    @Composable
-    fun DoLogin(viewModel: LoginViewModel) {
-
-        var username by remember { mutableStateOf("") }
-        var password by remember {mutableStateOf("")}
-
-        Column (
-            modifier = Modifier.fillMaxSize().padding(16.dp), verticalArrangement = Arrangement.Center
-        ){
-
-            TextField(
-                value = username,
-                onValueChange = {username = it},
-                label = { Text("Usuário")},
-                modifier = Modifier.fillMaxWidth()
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-
-            TextField(
-                value = password,
-                onValueChange = {password = it},
-                label = {Text("Senha")},
-                modifier = Modifier.fillMaxWidth()
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Button(
-                onClick = {viewModel.login(name = username, password = password)},
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Login")
+            if (isLoggedIn) {
+                MainScreen()
+            } else {
+                DoLogin(loginViewModel)
             }
 
         }
     }
+
+
 }

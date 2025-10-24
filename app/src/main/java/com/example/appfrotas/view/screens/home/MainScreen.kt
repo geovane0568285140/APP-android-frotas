@@ -35,6 +35,7 @@ import com.example.appfrotas.view.screens.frotas.FrotaRegisterScreen
 import com.example.appfrotas.view.screens.movements.ArrivalScreen
 import com.example.appfrotas.view.screens.movements.ExitScreen
 import com.example.appfrotas.view.screens.frotas.FrotasScreen
+import com.example.appfrotas.view.screens.login.DoLogin
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)

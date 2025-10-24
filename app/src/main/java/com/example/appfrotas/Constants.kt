@@ -3,19 +3,31 @@ package com.example.appfrotas
 class Constants private constructor() {
 
 
-    object DateTime{
+    object DateTime {
 
         const val dateTime = "dd-MM-yyyy HH:mm"
 
     }
 
+    object SharedPreference {
+
+        object file_user{
+
+            const val file_name = "user_date"
+
+            const val keyPassword = "key_password"
+            const val keyUserName = "key_user_name"
+            const val keyToken = "key_token"
+        }
+
+    }
 
     object Local {
 
-        object dataBase{
+        object dataBase {
             const val nameDataBase = "db.frota"
 
-            object table{
+            object table {
                 const val userTable_name = "dbo.user"
                 const val carFrotaTable_name = "dbo.car_frota"
                 const val exitTable_name = "dbo.exit_record"

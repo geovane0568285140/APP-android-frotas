@@ -4,10 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.appfrotas.view.screens.login.LoginScreen
+// import com.example.appfrotas.view.screens.login.LoginScreen
 
 
-@Composable
+/* @Composable
     fun App(){
         val navController = rememberNavController()
 
@@ -22,3 +22,4 @@ import com.example.appfrotas.view.screens.login.LoginScreen
             composable("Home") { HomeScreen(navController) }
         }
     }
+*/

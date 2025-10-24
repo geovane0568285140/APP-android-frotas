@@ -42,6 +42,7 @@ abstract class DataBaseFrotas : RoomDatabase() {
     abstract fun supplyDAO(): SupplyDAO
     abstract fun observationDAO(): ObservationDAO
     abstract fun carRequestDAO(): CarRequestDAO
+
     companion object {
 
         private lateinit var INSTANCE: DataBaseFrotas
