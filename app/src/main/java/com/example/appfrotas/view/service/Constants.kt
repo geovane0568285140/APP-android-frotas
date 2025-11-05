@@ -1,4 +1,4 @@
-package com.example.appfrotas
+package com.example.appfrotas.view.service
 
 class Constants private constructor() {
 
@@ -18,6 +18,9 @@ class Constants private constructor() {
             const val keyPassword = "key_password"
             const val keyUserName = "key_user_name"
             const val keyToken = "key_token"
+
+            const val keyLocalDateTimeLastToken = "key_localDataTimeLastToken"
+            const val keyLocalDateTimeLogin = "key_localDataTimeLogin"
         }
 
     }

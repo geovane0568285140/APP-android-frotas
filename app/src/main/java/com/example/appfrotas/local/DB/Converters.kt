@@ -1,7 +1,7 @@
 package com.example.appfrotas.local.DB
 
 import androidx.room.TypeConverter
-import com.example.appfrotas.Constants
+import com.example.appfrotas.view.service.Constants
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 

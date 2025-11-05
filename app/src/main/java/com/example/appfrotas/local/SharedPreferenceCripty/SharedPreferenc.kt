@@ -7,6 +7,7 @@ import java.time.LocalDateTime
 
 class SharedPreferenc(val prefs: SharedPreferences) {
 
+
     fun createdString(key:String, value:String){
         try {
             prefs.edit().putString(key, value).apply()

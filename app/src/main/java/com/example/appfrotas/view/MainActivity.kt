@@ -37,8 +37,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
 
-
+            val mainViewModel: ActivityViewModel by viewModels()
             val loginViewModel: LoginViewModel by viewModels()
+
+            if (mainViewModel.verifyIsLogged())
+                loginViewModel.setTrueIsLoggedIn()
+
             val isLoggedIn: Boolean by loginViewModel.isLoggedIn.collectAsState()
 
             if (isLoggedIn) {
