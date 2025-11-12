@@ -1,5 +1,6 @@
 package com.example.appfrotas.view
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -25,22 +26,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.appfrotas.view.screens.home.MainScreen
 import com.example.appfrotas.view.screens.login.DoLogin
+import com.example.appfrotas.view.service.Constants
 import com.example.appfrotas.view.viewmodel.ActivityViewModel
 import com.example.appfrotas.view.viewmodel.LoginViewModel
 
 class MainActivity : ComponentActivity() {
-
-    private val activityViewModel: ActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
 
+
             val mainViewModel: ActivityViewModel by viewModels()
             val loginViewModel: LoginViewModel by viewModels()
 
-            if (mainViewModel.verifyIsLogged())
+            val prefs = applicationContext.getSharedPreferences(
+                Constants.SharedPreference.file_user.file_name,
+                MODE_PRIVATE
+            )
+
+            if (mainViewModel.verifyIsLogged(prefs))
                 loginViewModel.setTrueIsLoggedIn()
 
             val isLoggedIn: Boolean by loginViewModel.isLoggedIn.collectAsState()

@@ -9,12 +9,12 @@ import com.example.appfrotas.local.SharedPreferenceCripty.SharedPreferenc
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
-class ActivityViewModel(val prefs: SharedPreferences) : ViewModel() {
+class ActivityViewModel() : ViewModel() {
 
 
-    fun verifyIsLogged(): Boolean {
+    fun verifyIsLogged(prefs: SharedPreferences): Boolean {
 
-        val lastlogin = verifyLastLoginPeriod()
+        val lastlogin = verifyLastLoginPeriod(prefs)
         val nowLocalDataTime = LocalDateTime.now()
 
         var daysSinceLastLogin: Long = 8
@@ -30,14 +30,14 @@ class ActivityViewModel(val prefs: SharedPreferences) : ViewModel() {
     }
 
 
-    fun verifyLastLoginPeriod(): LocalDateTime? {
+    fun verifyLastLoginPeriod(prefs: SharedPreferences): LocalDateTime? {
         val const = Constants.SharedPreference.file_user
 
         val prefs = SharedPreferenc(prefs)
         val stringLocalDataTime: String? = prefs.getString(const.keyLocalDateTimeLogin, "")
         var lastLoginlocalDateTime: LocalDateTime? = null
-        if (stringLocalDataTime != "")
-            lastLoginlocalDateTime = Converters().string_Datatime(stringLocalDataTime!!)
+        if (stringLocalDataTime != null && stringLocalDataTime != "")
+            lastLoginlocalDateTime = Converters().string_Datatime(stringLocalDataTime)
 
         return lastLoginlocalDateTime
     }
