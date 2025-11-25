@@ -55,7 +55,6 @@ fun HomeScreen(navController: NavController) {
             .fillMaxSize()
             .padding(horizontal = 16.dp)
     ) {
-        // Barra de pesquisa logo abaixo
         OutlinedTextField(
             value = text,
             onValueChange = { textNew -> text = textNew},
@@ -71,7 +70,6 @@ fun HomeScreen(navController: NavController) {
                 .padding(top = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp) // espaço entre os botões
         ) {
-            // Button de Register
             Button(
                 onClick = { navController.navigate("created_arrival") },
                 modifier = Modifier
@@ -87,7 +85,6 @@ fun HomeScreen(navController: NavController) {
                 Text("Chegada")
             }
 
-            // Button de Exit
             Button(
                 onClick = { navController.navigate("created_exit") },
                 modifier = Modifier
@@ -106,14 +103,12 @@ fun HomeScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        // Listas Chegada e Saída lado a lado
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            // Coluna Chegadas
             Column(
                 modifier = Modifier.weight(1f),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -146,7 +141,6 @@ fun HomeScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.width(16.dp))
 
-            // Coluna Saídas
             Column(
                 modifier = Modifier.weight(1f),
                 horizontalAlignment = Alignment.CenterHorizontally

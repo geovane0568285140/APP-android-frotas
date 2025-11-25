@@ -6,7 +6,7 @@ import com.example.appfrotas.view.service.Constants
 import java.util.UUID
 
 @Entity(tableName = Constants.Local.dataBase.table.carRequestTable_name)
-data class CarRequestEntity (
+data class CarRequestEntityLocal (
     @PrimaryKey()
     var id_car_request: UUID = UUID.randomUUID()
 )

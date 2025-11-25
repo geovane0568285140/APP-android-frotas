@@ -1,4 +1,7 @@
 package com.example.appfrotas.view.viewmodel
 
-class HomeViewModel {
+import androidx.lifecycle.ViewModel
+
+class HomeViewModel: ViewModel() {
+
 }

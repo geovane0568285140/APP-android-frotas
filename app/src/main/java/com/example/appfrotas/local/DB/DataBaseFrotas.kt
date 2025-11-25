@@ -13,23 +13,23 @@ import com.example.appfrotas.local.DAO.ExitDAO
 import com.example.appfrotas.local.DAO.ObservationDAO
 import com.example.appfrotas.local.DAO.SupplyDAO
 import com.example.appfrotas.local.DAO.UserDAO
-import com.example.appfrotas.local.Entitys.ArrivalEntity
-import com.example.appfrotas.local.Entitys.CarFrotaEntity
-import com.example.appfrotas.local.Entitys.CarRequestEntity
-import com.example.appfrotas.local.Entitys.ExitEntity
-import com.example.appfrotas.local.Entitys.ObservationEntity
-import com.example.appfrotas.local.Entitys.SupplyEntity
-import com.example.appfrotas.local.Entitys.UserEntity
+import com.example.appfrotas.local.Entitys.ArrivalEntityLocal
+import com.example.appfrotas.local.Entitys.CarFrotaEntityLocal
+import com.example.appfrotas.local.Entitys.CarRequestEntityLocal
+import com.example.appfrotas.local.Entitys.ExitEntityLocal
+import com.example.appfrotas.local.Entitys.ObservationEntityLocal
+import com.example.appfrotas.local.Entitys.SupplyEntityLocal
+import com.example.appfrotas.local.Entitys.UserEntityLocal
 
 @Database(
     entities = [
-        UserEntity::class,
-        CarFrotaEntity::class,
-        ExitEntity::class,
-        ArrivalEntity::class,
-        SupplyEntity::class,
-        ObservationEntity::class,
-        CarRequestEntity::class
+        UserEntityLocal::class,
+        CarFrotaEntityLocal::class,
+        ExitEntityLocal::class,
+        ArrivalEntityLocal::class,
+        SupplyEntityLocal::class,
+        ObservationEntityLocal::class,
+        CarRequestEntityLocal::class
     ], version = 1
 )
 @TypeConverters(Converters::class)

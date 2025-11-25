@@ -6,7 +6,7 @@ import com.example.appfrotas.view.service.Constants
 import java.util.UUID
 
 @Entity(tableName = Constants.Local.dataBase.table.observationTable_name)
-data class ObservationEntity (
+data class ObservationEntityLocal (
     @PrimaryKey()
     var id_observation: UUID = UUID.randomUUID()
 )

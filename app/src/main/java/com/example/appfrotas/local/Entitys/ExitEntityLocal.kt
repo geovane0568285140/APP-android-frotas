@@ -6,7 +6,7 @@ import com.example.appfrotas.view.service.Constants
 import java.util.UUID
 
 @Entity(tableName = Constants.Local.dataBase.table.exitTable_name)
-data class ExitEntity (
+data class ExitEntityLocal (
     @PrimaryKey()
     var id_exit_record: UUID = UUID.randomUUID()
 
