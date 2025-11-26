@@ -26,6 +26,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,20 +36,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-
+import com.example.appfrotas.remote.Entity.ExitEntityRemote
+import com.example.appfrotas.view.viewmodel.HomeViewModel
+import dagger.hilt.android.HiltAndroidApp
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(navController: NavController) {
 
-    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val scope = rememberCoroutineScope()
+   // val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+   // val scope = rememberCoroutineScope()
 
+    val viewModel: HomeViewModel = viewModel()
     var text by remember { mutableStateOf("") }
 
     val chegadas = listOf("01/10", "02/10", "03/10", "04/10")
     val saidas = listOf("01/10", "02/10", "03/10", "04/10", "05/10")
+
+    viewModel.getExits()
+    val exits: List<ExitEntityRemote> by viewModel.exits.collectAsState()
 
     Column(
         modifier = Modifier
@@ -149,7 +159,7 @@ fun HomeScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(
                     8.dp))
 
-                saidas.forEach { data ->
+                exits.forEach { data ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.padding(vertical = 4.dp)
@@ -167,7 +177,7 @@ fun HomeScreen(navController: NavController) {
                             )
                         }
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(data)
+                        Text(data.date_exit)
                     }
                 }
             }

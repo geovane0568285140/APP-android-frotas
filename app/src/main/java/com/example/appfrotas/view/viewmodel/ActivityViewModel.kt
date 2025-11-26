@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.example.appfrotas.view.service.Constants
 import com.example.appfrotas.local.DB.Converters
 import com.example.appfrotas.local.SharedPreferenceCripty.SharedPreferenc
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.HiltAndroidApp
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 

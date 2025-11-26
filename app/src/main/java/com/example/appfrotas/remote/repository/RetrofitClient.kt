@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitClient {
     companion object{
         private lateinit var INSTANCE: Retrofit
-        private const val BASE_URL = "http://192.168.1.14:8080/frotas/";
+        private const val BASE_URL = "http://192.168.0.2:8080/frotas/";
         private fun getRetrofitInstance(): Retrofit{
             val http = OkHttpClient.Builder()
             if (!::INSTANCE.isInitialized){

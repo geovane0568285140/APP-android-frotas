@@ -2,7 +2,7 @@ package com.example.appfrotas.remote.Entity
 
 import com.google.gson.annotations.SerializedName
 
-data class ExitEntityRemote(
+data class ExitEntityRemote (
 
     @SerializedName("id_exit_record")
     val id_exit: String,
