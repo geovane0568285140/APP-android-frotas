@@ -3,9 +3,9 @@ package com.example.appfrotas.view.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.appfrotas.remote.Entity.ExitEntityRemote
-import com.example.appfrotas.remote.repository.RetrofitClient
-import com.example.appfrotas.remote.serviceRetrofit.ExitService
+import com.example.appfrotas.ServiceApp.remote.Entity.ExitEntityRemote
+import com.example.appfrotas.ServiceApp.remote.repository.RetrofitClient
+import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.ExitService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch

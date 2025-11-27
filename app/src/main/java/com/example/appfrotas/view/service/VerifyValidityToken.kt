@@ -3,9 +3,9 @@ package com.example.appfrotas.view.service
 import android.content.SharedPreferences
 import android.util.Log
 import com.example.appfrotas.local.DB.Converters
-import com.example.appfrotas.remote.repository.RetrofitClient
-import com.example.appfrotas.remote.serviceRetrofit.AuthRequest
-import com.example.appfrotas.remote.serviceRetrofit.AuthService
+import com.example.appfrotas.ServiceApp.remote.repository.RetrofitClient
+import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.AuthRequest
+import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.AuthService
 import java.time.Duration
 import java.time.LocalDateTime
 

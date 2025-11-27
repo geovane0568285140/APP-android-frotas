@@ -7,9 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.appfrotas.view.service.Constants
 import com.example.appfrotas.local.DB.Converters
 import com.example.appfrotas.local.SharedPreferenceCripty.SharedPreferenc
-import com.example.appfrotas.remote.repository.RetrofitClient
-import com.example.appfrotas.remote.serviceRetrofit.AuthRequest
-import com.example.appfrotas.remote.serviceRetrofit.AuthService
+import com.example.appfrotas.ServiceApp.remote.repository.RetrofitClient
+import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.AuthRequest
+import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.AuthService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
