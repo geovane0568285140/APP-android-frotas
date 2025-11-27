@@ -9,7 +9,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.example.appfrotas.view.screens.home.MainScreen
 import com.example.appfrotas.view.screens.login.DoLogin
-import com.example.appfrotas.view.service.Constants
+import com.example.appfrotas.ServiceApp.Constants
 import com.example.appfrotas.view.viewmodel.ActivityViewModel
 import com.example.appfrotas.view.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint

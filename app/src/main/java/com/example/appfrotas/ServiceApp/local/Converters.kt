@@ -1,7 +1,7 @@
-package com.example.appfrotas.ServiceApp.local.DB
+package com.example.appfrotas.ServiceApp.local
 
 import androidx.room.TypeConverter
-import com.example.appfrotas.view.service.Constants
+import com.example.appfrotas.ServiceApp.Constants
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -15,7 +15,7 @@ class Converters {
     }
 
     @TypeConverter
-    fun string_Datatime(dateTimeString: String): LocalDateTime{
+    fun string_Datatime(dateTimeString: String): LocalDateTime {
         return LocalDateTime.parse(dateTimeString, formatter)
     }
 

@@ -4,9 +4,9 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.appfrotas.view.service.Constants
-import com.example.appfrotas.local.DB.Converters
-import com.example.appfrotas.local.SharedPreferenceCripty.SharedPreferenc
+import com.example.appfrotas.ServiceApp.Constants
+import com.example.appfrotas.ServiceApp.SharedPreferenceCripty.SharedPreferenc
+import com.example.appfrotas.ServiceApp.local.Converters
 import com.example.appfrotas.ServiceApp.remote.repository.RetrofitClient
 import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.AuthRequest
 import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.AuthService

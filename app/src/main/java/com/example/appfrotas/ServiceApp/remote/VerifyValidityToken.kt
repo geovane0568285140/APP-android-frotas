@@ -1,15 +1,16 @@
-package com.example.appfrotas.view.service
+package com.example.appfrotas.ServiceApp.remote
 
 import android.content.SharedPreferences
 import android.util.Log
-import com.example.appfrotas.local.DB.Converters
+import com.example.appfrotas.ServiceApp.Constants
+import com.example.appfrotas.ServiceApp.local.Converters
 import com.example.appfrotas.ServiceApp.remote.repository.RetrofitClient
 import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.AuthRequest
 import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.AuthService
 import java.time.Duration
 import java.time.LocalDateTime
 
-class VerifyValidityToken(val prefs: SharedPreferences) {
+class erifyValidityToken(val prefs: SharedPreferences) {
     val const = Constants.SharedPreference.file_user
 
     val stringLocalDataTimeToken = prefs.getString(const.keyLocalDateTimeLastToken, "no-date-token")
@@ -42,7 +43,7 @@ class VerifyValidityToken(val prefs: SharedPreferences) {
         val password = prefs.getString(const.keyPassword, "")
 
         try {
-            val service = RetrofitClient.getService(AuthService::class.java)
+            val service = RetrofitClient.Companion.getService(AuthService::class.java)
             val response = service.auth(AuthRequest(name!!, password!!))
             return response.body()?.token
         } catch (e: Exception){

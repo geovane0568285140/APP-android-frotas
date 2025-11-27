@@ -1,10 +1,11 @@
-package com.example.appfrotas.ServiceApp.local.DB
+package com.example.appfrotas.ServiceApp.local.repository
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.appfrotas.ServiceApp.Constants
 import com.example.appfrotas.ServiceApp.local.DAO.ArrivalDAO
 import com.example.appfrotas.ServiceApp.local.DAO.CarFrotaDAO
 import com.example.appfrotas.ServiceApp.local.DAO.CarRequestDAO
@@ -12,6 +13,7 @@ import com.example.appfrotas.ServiceApp.local.DAO.ExitDAO
 import com.example.appfrotas.ServiceApp.local.DAO.ObservationDAO
 import com.example.appfrotas.ServiceApp.local.DAO.SupplyDAO
 import com.example.appfrotas.ServiceApp.local.DAO.UserDAO
+import com.example.appfrotas.ServiceApp.local.Converters
 import com.example.appfrotas.ServiceApp.local.Entitys.ArrivalEntityLocal
 import com.example.appfrotas.ServiceApp.local.Entitys.CarFrotaEntityLocal
 import com.example.appfrotas.ServiceApp.local.Entitys.CarRequestEntityLocal
@@ -19,7 +21,6 @@ import com.example.appfrotas.ServiceApp.local.Entitys.ExitEntityLocal
 import com.example.appfrotas.ServiceApp.local.Entitys.ObservationEntityLocal
 import com.example.appfrotas.ServiceApp.local.Entitys.SupplyEntityLocal
 import com.example.appfrotas.ServiceApp.local.Entitys.UserEntityLocal
-import com.example.appfrotas.view.service.Constants
 
 @Database(
     entities = [

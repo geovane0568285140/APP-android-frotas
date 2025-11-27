@@ -19,7 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.example.appfrotas.view.service.Constants
+import com.example.appfrotas.ServiceApp.Constants
 import com.example.appfrotas.view.viewmodel.LoginViewModel
 
 

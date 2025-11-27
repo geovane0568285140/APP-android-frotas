@@ -1,13 +1,10 @@
 package com.example.appfrotas.view.viewmodel
 
-import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
-import com.example.appfrotas.view.service.Constants
-import com.example.appfrotas.local.DB.Converters
-import com.example.appfrotas.local.SharedPreferenceCripty.SharedPreferenc
-import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
+import com.example.appfrotas.ServiceApp.Constants
+import com.example.appfrotas.ServiceApp.SharedPreferenceCripty.SharedPreferenc
+import com.example.appfrotas.ServiceApp.local.Converters
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 

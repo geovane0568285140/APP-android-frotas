@@ -1,4 +1,4 @@
-package com.example.appfrotas.ServiceApp.local.SharedPreferenceCripty
+package com.example.appfrotas.ServiceApp.SharedPreferenceCripty
 
 import android.annotation.SuppressLint
 import android.content.SharedPreferences

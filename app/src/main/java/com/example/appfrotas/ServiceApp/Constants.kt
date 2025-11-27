@@ -1,4 +1,4 @@
-package com.example.appfrotas.view.service
+package com.example.appfrotas.ServiceApp
 
 class Constants private constructor() {
 
