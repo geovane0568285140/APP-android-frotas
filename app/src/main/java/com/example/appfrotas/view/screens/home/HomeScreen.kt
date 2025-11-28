@@ -49,7 +49,7 @@ fun HomeScreen(navController: NavController) {
     var text by remember { mutableStateOf("") }
 
     val chegadas = listOf("01/10", "02/10", "03/10", "04/10")
-    val saidas = listOf("01/10", "02/10", "03/10", "04/10", "05/10")
+    val saidas = listOf("01/10", "02/10", "03/10", "04/10", " ")
 
     viewModel.getExits()
     val exits: List<ExitEntityRemote> by viewModel.exits.collectAsState()
@@ -171,7 +171,7 @@ fun HomeScreen(navController: NavController) {
                             )
                         }
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(data.date_exit)
+                        Text(viewModel.formaterDDMM(data.date_exit))
                     }
                 }
             }

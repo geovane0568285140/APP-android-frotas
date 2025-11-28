@@ -25,13 +25,6 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     val exits: MutableStateFlow<List<ExitEntityRemote>> = _exits
 
     fun getExits() {
-
-        val teste = SharedPreference.getString(
-            Constants.SharedPreference.file_user.keyToken,
-            ""
-        )
-
-        val teste2 = teste
         viewModelScope.launch {
             try {
                 val service = RetrofitClient.getService(ExitService::class.java)
@@ -50,6 +43,14 @@ class HomeViewModel @Inject constructor() : ViewModel() {
                 )
             }
         }
+    }
+
+    fun formaterDDMM(dataTimeString: String): String{
+
+        val dia = dataTimeString.substring(8, 10)
+        val mes = dataTimeString.substring(5, 7)
+
+        return "$dia/$mes"
     }
 
 }
