@@ -1,5 +1,6 @@
 package com.example.appfrotas.ServiceApp.remote.serviceRetrofit
 
+import com.example.appfrotas.ServiceApp.remote.DTOs.Request.AuthRequestDto
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -7,15 +8,8 @@ import retrofit2.http.POST
 interface AuthService {
 
     @POST("auth/login")
-    suspend fun auth(@Body request: AuthRequest): Response<AuthResponse>
+    suspend fun auth(@Body request: AuthRequestDto): Response<AuthResponse>
 
 }
 
-data class AuthRequest(
-    val email: String,
-    val password: String
-)
-data class AuthResponse(
-    val token: String
-)
 

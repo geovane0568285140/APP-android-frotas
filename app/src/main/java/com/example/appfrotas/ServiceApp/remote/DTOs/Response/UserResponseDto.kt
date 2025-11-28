@@ -1,4 +1,4 @@
-package com.example.appfrotas.ServiceApp.remote.Entity
+package com.example.appfrotas.ServiceApp.remote.DTOs.Response
 
 import com.google.gson.annotations.SerializedName
 

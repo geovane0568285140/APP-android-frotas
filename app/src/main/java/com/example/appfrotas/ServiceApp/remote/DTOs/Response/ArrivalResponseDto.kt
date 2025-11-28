@@ -1,8 +1,8 @@
-package com.example.appfrotas.ServiceApp.remote.Entity
+package com.example.appfrotas.ServiceApp.remote.DTOs.Response
 
 import com.google.gson.annotations.SerializedName
 
-data class ArrivalEntityRemote(
+data class ArrivalResponseDto(
 
     @SerializedName("id_arrival_record")
     val id_arrival: String,

@@ -35,8 +35,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.appfrotas.ServiceApp.remote.Entity.ArrivalEntityRemote
-import com.example.appfrotas.ServiceApp.remote.Entity.ExitEntityRemote
+import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ArrivalResponseDto
+import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitResponseDto
 import com.example.appfrotas.view.viewmodel.HomeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,8 +54,8 @@ fun HomeScreen(navController: NavController) {
 
     viewModel.getExits()
     viewModel.getArrivals()
-    val exits: List<ExitEntityRemote> by viewModel.exits.collectAsState()
-    val arrivals: List<ArrivalEntityRemote> by viewModel.arrivals.collectAsState()
+    val exits: List<ExitResponseDto> by viewModel.exits.collectAsState()
+    val arrivals: List<ArrivalResponseDto> by viewModel.arrivals.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxSize()

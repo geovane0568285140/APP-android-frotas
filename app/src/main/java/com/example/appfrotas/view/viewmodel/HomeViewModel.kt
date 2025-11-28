@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.appfrotas.ServiceApp.Constants
 import com.example.appfrotas.ServiceApp.SharedPreferenceCripty.SharedPreference
-import com.example.appfrotas.ServiceApp.remote.Entity.ArrivalEntityRemote
-import com.example.appfrotas.ServiceApp.remote.Entity.ExitEntityRemote
+import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ArrivalResponseDto
+import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitResponseDto
 import com.example.appfrotas.ServiceApp.remote.repository.RetrofitClient
 import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.ArrivalService
 import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.ExitService
@@ -21,11 +21,11 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     /*    val chegadas = listOf("01/10", "02/10", "03/10", "04/10")
     val saidas = listOf("01/10", "02/10", "03/10", "04/10", "05/10")*/
 
-    private val _arrivals = MutableStateFlow<List<ArrivalEntityRemote>>(emptyList())
-    private val _exits = MutableStateFlow<List<ExitEntityRemote>>(emptyList())
+    private val _arrivals = MutableStateFlow<List<ArrivalResponseDto>>(emptyList())
+    private val _exits = MutableStateFlow<List<ExitResponseDto>>(emptyList())
 
-    val exits: MutableStateFlow<List<ExitEntityRemote>> = _exits
-    val arrivals: MutableStateFlow<List<ArrivalEntityRemote>> = _arrivals
+    val exits: MutableStateFlow<List<ExitResponseDto>> = _exits
+    val arrivals: MutableStateFlow<List<ArrivalResponseDto>> = _arrivals
 
     fun getExits() {
         viewModelScope.launch {
