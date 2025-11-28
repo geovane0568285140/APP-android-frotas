@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.appfrotas.ServiceApp.Constants
-import com.example.appfrotas.ServiceApp.SharedPreferenceCripty.SharedPreferenc
+import com.example.appfrotas.ServiceApp.SharedPreferenceCripty.SharedPreference
 import com.example.appfrotas.ServiceApp.local.Converters
 import com.example.appfrotas.ServiceApp.remote.repository.RetrofitClient
 import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.AuthRequest
@@ -20,7 +20,7 @@ class LoginViewModel : ViewModel() {
     private val _isLoggedIn = MutableStateFlow(false)
     val isLoggedIn: StateFlow<Boolean> = _isLoggedIn
 
-    fun login(name: String, password: String, prefs: SharedPreferences) {
+    fun login(name: String, password: String) {
         viewModelScope.launch {
             try {
                 val service = RetrofitClient.getService(AuthService::class.java)
@@ -34,17 +34,16 @@ class LoginViewModel : ViewModel() {
                         setTrueIsLoggedIn()
 
                         val const = Constants.SharedPreference.file_user
-                        val prefs = SharedPreferenc(prefs)
-                        prefs.createdString(const.keyUserName, name)
-                        prefs.createdString(const.keyPassword, password)
-                        prefs.createdString(const.keyToken, body.token)
+                        SharedPreference.createdString(const.keyUserName, name)
+                        SharedPreference.createdString(const.keyPassword, password)
+                        SharedPreference.createdString(const.keyToken, body.token)
 
                         val localDateTimeLastToken = LocalDateTime.now()
                         val localDateTimeLogin = LocalDateTime.now()
                         val stringLocalDateTimeLogin = Converters().dataTime_String(localDateTimeLogin)
                         val stringLocalDataTimeLastToken = Converters().dataTime_String(localDateTimeLastToken)
-                        prefs.createdString(const.keyLocalDateTimeLogin, stringLocalDateTimeLogin)
-                        prefs.createdString(const.keyLocalDateTimeLastToken, stringLocalDataTimeLastToken)
+                        SharedPreference.createdString(const.keyLocalDateTimeLogin, stringLocalDateTimeLogin)
+                        SharedPreference.createdString(const.keyLocalDateTimeLastToken, stringLocalDataTimeLastToken)
 
                     } else{
                         Log.e("CALL Response is null", "ERROR - The Token the for response in call the api is null")

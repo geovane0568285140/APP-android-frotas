@@ -72,11 +72,6 @@ fun DoLogin(viewModel: LoginViewModel) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
-    val context = LocalContext.current
-    val prefs = context.getSharedPreferences(
-        Constants.SharedPreference.file_user.file_name,
-        Context.MODE_PRIVATE
-    )
 
     Column(
         modifier = Modifier
@@ -101,7 +96,7 @@ fun DoLogin(viewModel: LoginViewModel) {
         Spacer(modifier = Modifier.height(8.dp))
 
         Button(
-            onClick = { viewModel.login(name = username, password = password, prefs) },
+            onClick = { viewModel.login(name = username, password = password) },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Login")

@@ -7,6 +7,6 @@ import retrofit2.http.Header
 interface ExitService {
 
     @GET("exit/get")
-    suspend fun getExtis(@Header("Authorization") token: String): List<ExitEntityRemote>
+    suspend fun getExtis(@Header("Authorization") token: String?): List<ExitEntityRemote>
 
 }

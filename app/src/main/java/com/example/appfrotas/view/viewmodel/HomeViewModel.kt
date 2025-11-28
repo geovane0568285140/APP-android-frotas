@@ -3,6 +3,8 @@ package com.example.appfrotas.view.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.appfrotas.ServiceApp.Constants
+import com.example.appfrotas.ServiceApp.SharedPreferenceCripty.SharedPreference
 import com.example.appfrotas.ServiceApp.remote.Entity.ExitEntityRemote
 import com.example.appfrotas.ServiceApp.remote.repository.RetrofitClient
 import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.ExitService
@@ -22,14 +24,30 @@ class HomeViewModel @Inject constructor() : ViewModel() {
 
     val exits: MutableStateFlow<List<ExitEntityRemote>> = _exits
 
-    fun getExits(){
+    fun getExits() {
+
+        val teste = SharedPreference.getString(
+            Constants.SharedPreference.file_user.keyToken,
+            ""
+        )
+
+        val teste2 = teste
         viewModelScope.launch {
             try {
                 val service = RetrofitClient.getService(ExitService::class.java)
-                val response = service.getExtis()
+                val response = service.getExtis("Bearer " +
+                    SharedPreference.getString(
+                        Constants.SharedPreference.file_user.keyToken,
+                        ""
+                    )
+                )
                 _exits.value = response
             } catch (e: Exception) {
-                Log.e("CALL the of method getExits", "ERROR - function getExits in viewModel - HomeViewModel")
+                Log.e(
+                    "CALL the of method getExits",
+                    // "ERROR - function getExits in viewModel - HomeViewModel"
+                    "$e"
+                )
             }
         }
     }

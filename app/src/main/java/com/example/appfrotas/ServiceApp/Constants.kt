@@ -13,7 +13,7 @@ class Constants private constructor() {
 
         object file_user{
 
-            const val file_name = "user_date"
+            const val file_name_user_data = "user_date"
 
             const val keyPassword = "key_password"
             const val keyUserName = "key_user_name"

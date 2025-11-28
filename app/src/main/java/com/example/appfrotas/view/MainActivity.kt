@@ -1,22 +1,25 @@
 package com.example.appfrotas.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import com.example.appfrotas.view.screens.home.MainScreen
 import com.example.appfrotas.view.screens.login.DoLogin
 import com.example.appfrotas.ServiceApp.Constants
+import com.example.appfrotas.ServiceApp.remote.VerifyValidityToken
 import com.example.appfrotas.view.viewmodel.ActivityViewModel
 import com.example.appfrotas.view.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 
 
-@HiltAndroidApp
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
@@ -25,16 +28,20 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
 
-
             val mainViewModel: ActivityViewModel by viewModels()
             val loginViewModel: LoginViewModel by viewModels()
 
-            val prefs = applicationContext.getSharedPreferences(
-                Constants.SharedPreference.file_user.file_name,
-                MODE_PRIVATE
+            LaunchedEffect(Unit) {
+                VerifyValidityToken().validityToken()
+            }
+
+            mainViewModel.instanceSharedPreference(
+                applicationContext.getSharedPreferences(
+                    Constants.SharedPreference.file_user.file_name_user_data, Context.MODE_PRIVATE
+                )
             )
 
-            if (mainViewModel.verifyIsLogged(prefs))
+            if (mainViewModel.verifyIsLogged())
                 loginViewModel.setTrueIsLoggedIn()
 
             val isLoggedIn: Boolean by loginViewModel.isLoggedIn.collectAsState()
