@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.appfrotas.ServiceApp.Constants
 import com.example.appfrotas.ServiceApp.SharedPreferenceCripty.SharedPreference
 import com.example.appfrotas.ServiceApp.local.Converters
+import com.example.appfrotas.ServiceApp.remote.DTOs.Request.AuthRequestDto
 import com.example.appfrotas.ServiceApp.remote.repository.RetrofitClient
-import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.AuthRequest
 import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.AuthService
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,7 +24,7 @@ class LoginViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val service = RetrofitClient.getService(AuthService::class.java)
-                val response = service.auth(AuthRequest(name, password))
+                val response = service.auth(AuthRequestDto      (name, password))
 
                 if (response.isSuccessful) {
                     val body = response.body()

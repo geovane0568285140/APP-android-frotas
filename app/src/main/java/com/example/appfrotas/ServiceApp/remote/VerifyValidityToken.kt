@@ -5,8 +5,8 @@ import android.util.Log
 import com.example.appfrotas.ServiceApp.Constants
 import com.example.appfrotas.ServiceApp.SharedPreferenceCripty.SharedPreference
 import com.example.appfrotas.ServiceApp.local.Converters
+import com.example.appfrotas.ServiceApp.remote.DTOs.Request.AuthRequestDto
 import com.example.appfrotas.ServiceApp.remote.repository.RetrofitClient
-import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.AuthRequest
 import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.AuthService
 import java.time.Duration
 import java.time.LocalDateTime
@@ -37,7 +37,7 @@ class VerifyValidityToken() {
                 val password =
                     SharedPreference.getString(const.keyPassword, "")
 
-                token = service.auth(AuthRequest(name!!, password!!)).body()?.token ?: ""
+                token = service.auth(AuthRequestDto(name!!, password!!)).body()?.token ?: ""
                 SharedPreference.createdString(const.keyToken, token!!)
 
             }
@@ -54,7 +54,7 @@ class VerifyValidityToken() {
 
         try {
             val service = RetrofitClient.Companion.getService(AuthService::class.java)
-            val response = service.auth(AuthRequest(name!!, password!!))
+            val response = service.auth(AuthRequestDto(name!!, password!!))
             return response.body()?.token
         } catch (e: Exception) {
             Log.i("ERROR - FUNCTION-NEWTOKEN", "ERROR in new instance or call the of service auth")
