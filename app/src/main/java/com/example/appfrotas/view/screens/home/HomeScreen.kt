@@ -35,6 +35,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.appfrotas.ServiceApp.remote.Entity.ArrivalEntityRemote
 import com.example.appfrotas.ServiceApp.remote.Entity.ExitEntityRemote
 import com.example.appfrotas.view.viewmodel.HomeViewModel
 
@@ -52,8 +53,9 @@ fun HomeScreen(navController: NavController) {
     val saidas = listOf("01/10", "02/10", "03/10", "04/10", " ")
 
     viewModel.getExits()
+    viewModel.getArrivals()
     val exits: List<ExitEntityRemote> by viewModel.exits.collectAsState()
-
+    val arrivals: List<ArrivalEntityRemote> by viewModel.arrivals.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -120,7 +122,7 @@ fun HomeScreen(navController: NavController) {
                 Text("Chegadas", style = MaterialTheme.typography.titleMedium)
                 Spacer(modifier = Modifier.height(8.dp))
 
-                chegadas.forEach { data ->
+                arrivals.forEach { data ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.padding(vertical = 4.dp)
@@ -138,7 +140,7 @@ fun HomeScreen(navController: NavController) {
                             )
                         }
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(data)
+                        Text(viewModel.formaterDDMM(data.date_arrival))
                     }
                 }
             }

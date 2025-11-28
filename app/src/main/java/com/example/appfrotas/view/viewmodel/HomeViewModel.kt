@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.appfrotas.ServiceApp.Constants
 import com.example.appfrotas.ServiceApp.SharedPreferenceCripty.SharedPreference
+import com.example.appfrotas.ServiceApp.remote.Entity.ArrivalEntityRemote
 import com.example.appfrotas.ServiceApp.remote.Entity.ExitEntityRemote
 import com.example.appfrotas.ServiceApp.remote.repository.RetrofitClient
+import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.ArrivalService
 import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.ExitService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,20 +21,22 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     /*    val chegadas = listOf("01/10", "02/10", "03/10", "04/10")
     val saidas = listOf("01/10", "02/10", "03/10", "04/10", "05/10")*/
 
-    private val _arrivals = MutableStateFlow(listOf(""))
+    private val _arrivals = MutableStateFlow<List<ArrivalEntityRemote>>(emptyList())
     private val _exits = MutableStateFlow<List<ExitEntityRemote>>(emptyList())
 
     val exits: MutableStateFlow<List<ExitEntityRemote>> = _exits
+    val arrivals: MutableStateFlow<List<ArrivalEntityRemote>> = _arrivals
 
     fun getExits() {
         viewModelScope.launch {
             try {
-                val service = RetrofitClient.getService(ExitService::class.java)
-                val response = service.getExtis("Bearer " +
-                    SharedPreference.getString(
-                        Constants.SharedPreference.file_user.keyToken,
-                        ""
-                    )
+                val remote = RetrofitClient.getService(ExitService::class.java)
+                val response = remote.getExtis(
+                    "Bearer " +
+                            SharedPreference.getString(
+                                Constants.SharedPreference.file_user.keyToken,
+                                ""
+                            )
                 )
                 _exits.value = response
             } catch (e: Exception) {
@@ -45,7 +49,28 @@ class HomeViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun formaterDDMM(dataTimeString: String): String{
+    fun getArrivals() {
+        viewModelScope.launch {
+            try {
+                val remote = RetrofitClient.getService(ArrivalService::class.java)
+                val response = remote.getArrivals(
+                    "Bearer " + SharedPreference.getString(
+                        Constants.SharedPreference.file_user.keyToken,
+                        ""
+                    )
+                )
+
+                _arrivals.value = response
+            } catch (e: Exception) {
+                Log.e(
+                    "CALL the of method getArrivals",
+                    "$e"
+                )
+            }
+        }
+    }
+
+    fun formaterDDMM(dataTimeString: String): String {
 
         val dia = dataTimeString.substring(8, 10)
         val mes = dataTimeString.substring(5, 7)
