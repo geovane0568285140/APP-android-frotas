@@ -23,6 +23,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,15 +34,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ArrivalResponseDto
+import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitResponseDto
+import com.example.appfrotas.view.viewmodel.HomeViewModel
 
 @Composable
 fun ArrivalScreen(navController: NavController) {
 
-    var itemSelecionado by remember { mutableStateOf<String?>(null) }
+    var itemSelecionado by remember { mutableStateOf<ExitResponseDto?>(null) }
     var observation by remember { mutableStateOf("") }
 
     var numKm by remember { mutableStateOf<String>("") }
+
+    val homeViewModel: HomeViewModel = viewModel()
+
+    LaunchedEffect(Unit) {
+        homeViewModel.getExits()
+    }
+
+    val exits: List<ExitResponseDto> by homeViewModel.exits.collectAsState()
 
     val saidas = listOf("01/10", "02/10", "03/10", "04/10")
 
@@ -66,10 +80,11 @@ fun ArrivalScreen(navController: NavController) {
         Spacer(modifier = Modifier.width(8.dp))
 
 
-        Column(modifier = Modifier
-            .padding(20.dp)
-            .border(2.dp, Color.Gray)
-            .fillMaxWidth(),
+        Column(
+            modifier = Modifier
+                .padding(20.dp)
+                .border(2.dp, Color.Gray)
+                .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
@@ -79,7 +94,7 @@ fun ArrivalScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            saidas.forEach { data ->
+            exits.forEach { data ->
                 val selecionado = itemSelecionado == data
 
                 Row(
@@ -105,7 +120,7 @@ fun ArrivalScreen(navController: NavController) {
                     }
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = data,
+                        text = homeViewModel.formaterDDMM(data.date_exit),
                         color = Color.Black
                     )
                 }
@@ -129,7 +144,14 @@ fun ArrivalScreen(navController: NavController) {
         Spacer(modifier = Modifier.padding(10.dp))
 
         Button(
-            onClick = {},
+            onClick = {
+                homeViewModel.createArrivals(
+                    itemSelecionado?.id_exit ?: "",
+                    observation,
+                    numKm
+                )
+                navController.navigate("home")
+            },
             modifier = Modifier
                 .padding(8.dp)
                 .fillMaxWidth()

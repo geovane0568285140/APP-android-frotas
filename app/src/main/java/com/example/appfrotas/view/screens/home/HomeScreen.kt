@@ -24,6 +24,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,6 +34,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleResumeEffect
+import androidx.lifecycle.compose.LifecycleStartEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ArrivalResponseDto
@@ -49,11 +53,14 @@ fun HomeScreen(navController: NavController) {
     val viewModel: HomeViewModel = viewModel()
     var text by remember { mutableStateOf("") }
 
-    val chegadas = listOf("01/10", "02/10", "03/10", "04/10")
-    val saidas = listOf("01/10", "02/10", "03/10", "04/10", " ")
+    LifecycleResumeEffect(Unit) {
+        viewModel.getExits()
+        viewModel.getArrivals()
+        onPauseOrDispose {
+        }
+    }
 
-    viewModel.getExits()
-    viewModel.getArrivals()
+
     val exits: List<ExitResponseDto> by viewModel.exits.collectAsState()
     val arrivals: List<ArrivalResponseDto> by viewModel.arrivals.collectAsState()
     Column(

@@ -1,12 +1,15 @@
 package com.example.appfrotas.view.viewmodel
 
+import android.media.session.MediaSession
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.appfrotas.ServiceApp.Constants
 import com.example.appfrotas.ServiceApp.SharedPreferenceCripty.SharedPreference
+import com.example.appfrotas.ServiceApp.remote.DTOs.Request.ArrivalRequestDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ArrivalResponseDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitResponseDto
+import com.example.appfrotas.ServiceApp.remote.TokenResponseAuth
 import com.example.appfrotas.ServiceApp.remote.repository.RetrofitClient
 import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.ArrivalService
 import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.ExitService
@@ -64,6 +67,24 @@ class HomeViewModel @Inject constructor() : ViewModel() {
             } catch (e: Exception) {
                 Log.e(
                     "CALL the of method getArrivals",
+                    "$e"
+                )
+            }
+        }
+    }
+
+    fun createArrivals(fk_exit: String, observation: String, km_arrival: String) {
+        viewModelScope.launch {
+            try {
+                val remote = RetrofitClient.getService(ArrivalService::class.java)
+                remote.createArrival(
+                    "Bearer " +
+                    TokenResponseAuth.getToken(),
+                    ArrivalRequestDto(fk_exit, observation, km_arrival.toInt())
+                )
+            } catch (e: Exception) {
+                Log.e(
+                    "Error - function createArrivals in HomeViewModel",
                     "$e"
                 )
             }

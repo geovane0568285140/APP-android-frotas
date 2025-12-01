@@ -12,7 +12,7 @@ interface ArrivalService {
     @GET("arrival/get")
     suspend fun getArrivals(@Header("Authorization") token: String?): List<ArrivalResponseDto>
 
-    @POST
+    @POST("arrival/create")
     suspend fun createArrival(@Header("Authorization") token: String?, @Body request: ArrivalRequestDto)
 
 }

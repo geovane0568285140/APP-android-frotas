@@ -1,7 +1,6 @@
 package com.example.appfrotas.view
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,11 +12,10 @@ import androidx.compose.runtime.getValue
 import com.example.appfrotas.view.screens.home.MainScreen
 import com.example.appfrotas.view.screens.login.DoLogin
 import com.example.appfrotas.ServiceApp.Constants
-import com.example.appfrotas.ServiceApp.remote.VerifyValidityToken
+import com.example.appfrotas.ServiceApp.remote.TokenResponseAuth
 import com.example.appfrotas.view.viewmodel.ActivityViewModel
 import com.example.appfrotas.view.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 
 @AndroidEntryPoint
@@ -32,7 +30,7 @@ class MainActivity : ComponentActivity() {
             val loginViewModel: LoginViewModel by viewModels()
 
             LaunchedEffect(Unit) {
-                VerifyValidityToken().validityToken()
+                TokenResponseAuth.validityToken()
             }
 
             mainViewModel.instanceSharedPreference(
