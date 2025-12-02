@@ -38,12 +38,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ArrivalResponseDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitResponseDto
+import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitsNullArrivalDto
 import com.example.appfrotas.view.viewmodel.HomeViewModel
 
 @Composable
 fun ArrivalScreen(navController: NavController) {
 
-    var itemSelecionado by remember { mutableStateOf<ExitResponseDto?>(null) }
+    var itemSelecionado: ExitsNullArrivalDto? by remember { mutableStateOf<ExitsNullArrivalDto?>(null) }
     var observation by remember { mutableStateOf("") }
 
     var numKm by remember { mutableStateOf<String>("") }
@@ -51,10 +52,10 @@ fun ArrivalScreen(navController: NavController) {
     val homeViewModel: HomeViewModel = viewModel()
 
     LaunchedEffect(Unit) {
-        homeViewModel.getExits()
+        homeViewModel.getExitsWithoutArrival()
     }
 
-    val exits: List<ExitResponseDto> by homeViewModel.exits.collectAsState()
+    val exitsWithoutArrival: List<ExitsNullArrivalDto> by homeViewModel.exitsWithoutArrival.collectAsState()
 
     val saidas = listOf("01/10", "02/10", "03/10", "04/10")
 
@@ -94,7 +95,7 @@ fun ArrivalScreen(navController: NavController) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            exits.forEach { data ->
+            exitsWithoutArrival.forEach { data ->
                 val selecionado = itemSelecionado == data
 
                 Row(

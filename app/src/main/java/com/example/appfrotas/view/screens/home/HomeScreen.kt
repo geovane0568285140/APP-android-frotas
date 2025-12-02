@@ -47,8 +47,8 @@ import com.example.appfrotas.view.viewmodel.HomeViewModel
 @Composable
 fun HomeScreen(navController: NavController) {
 
-   // val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-   // val scope = rememberCoroutineScope()
+    // val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    // val scope = rememberCoroutineScope()
 
     val viewModel: HomeViewModel = viewModel()
     var text by remember { mutableStateOf("") }
@@ -56,6 +56,7 @@ fun HomeScreen(navController: NavController) {
     LifecycleResumeEffect(Unit) {
         viewModel.getExits()
         viewModel.getArrivals()
+
         onPauseOrDispose {
         }
     }
@@ -70,7 +71,7 @@ fun HomeScreen(navController: NavController) {
     ) {
         OutlinedTextField(
             value = text,
-            onValueChange = { textNew -> text = textNew},
+            onValueChange = { textNew -> text = textNew },
             label = { Text("Pesquisar...") },
             modifier = Modifier
                 .fillMaxWidth()
@@ -159,8 +160,11 @@ fun HomeScreen(navController: NavController) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text("Saídas", style = MaterialTheme.typography.titleMedium)
-                Spacer(modifier = Modifier.height(
-                    8.dp))
+                Spacer(
+                    modifier = Modifier.height(
+                        8.dp
+                    )
+                )
 
                 exits.forEach { data ->
                     Row(

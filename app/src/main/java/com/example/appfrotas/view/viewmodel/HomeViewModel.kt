@@ -9,6 +9,7 @@ import com.example.appfrotas.ServiceApp.SharedPreferenceCripty.SharedPreference
 import com.example.appfrotas.ServiceApp.remote.DTOs.Request.ArrivalRequestDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ArrivalResponseDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitResponseDto
+import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitsNullArrivalDto
 import com.example.appfrotas.ServiceApp.remote.TokenResponseAuth
 import com.example.appfrotas.ServiceApp.remote.repository.RetrofitClient
 import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.ArrivalService
@@ -27,8 +28,12 @@ class HomeViewModel @Inject constructor() : ViewModel() {
     private val _arrivals = MutableStateFlow<List<ArrivalResponseDto>>(emptyList())
     private val _exits = MutableStateFlow<List<ExitResponseDto>>(emptyList())
 
+    private val _exitsWithoutArrival = MutableStateFlow<List<ExitsNullArrivalDto>>(emptyList())
+
     val exits: MutableStateFlow<List<ExitResponseDto>> = _exits
     val arrivals: MutableStateFlow<List<ArrivalResponseDto>> = _arrivals
+
+    val exitsWithoutArrival: MutableStateFlow<List<ExitsNullArrivalDto>> = _exitsWithoutArrival
 
     fun getExits() {
         viewModelScope.launch {
@@ -48,6 +53,25 @@ class HomeViewModel @Inject constructor() : ViewModel() {
                     // "ERROR - function getExits in viewModel - HomeViewModel"
                     "$e"
                 )
+            }
+        }
+    }
+
+    fun getExitsWithoutArrival() {
+        viewModelScope.launch {
+            try {
+                val remote = RetrofitClient.getService(ExitService::class.java)
+                val response =
+                    remote.getExitsWithoutArrival(
+                        "Bearer " +
+                                SharedPreference.getString(
+                                    Constants.SharedPreference.file_user.keyToken,
+                                    ""
+                                )
+                    )
+                _exitsWithoutArrival.value = response
+            } catch (e: Exception) {
+                Log.e("Error function getExitsWithoutArrival", "$e")
             }
         }
     }
@@ -79,7 +103,7 @@ class HomeViewModel @Inject constructor() : ViewModel() {
                 val remote = RetrofitClient.getService(ArrivalService::class.java)
                 remote.createArrival(
                     "Bearer " +
-                    TokenResponseAuth.getToken(),
+                            TokenResponseAuth.getToken(),
                     ArrivalRequestDto(fk_exit, observation, km_arrival.toInt())
                 )
             } catch (e: Exception) {
