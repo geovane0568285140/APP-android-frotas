@@ -8,11 +8,13 @@ import com.example.appfrotas.ServiceApp.Constants
 import com.example.appfrotas.ServiceApp.SharedPreferenceCripty.SharedPreference
 import com.example.appfrotas.ServiceApp.remote.DTOs.Request.ArrivalRequestDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ArrivalResponseDto
+import com.example.appfrotas.ServiceApp.remote.DTOs.Response.CarsResponseDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitResponseDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitsNullArrivalDto
 import com.example.appfrotas.ServiceApp.remote.TokenResponseAuth
 import com.example.appfrotas.ServiceApp.remote.repository.RetrofitClient
 import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.ArrivalService
+import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.CarService
 import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.ExitService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,13 +29,17 @@ class HomeViewModel @Inject constructor() : ViewModel() {
 
     private val _arrivals = MutableStateFlow<List<ArrivalResponseDto>>(emptyList())
     private val _exits = MutableStateFlow<List<ExitResponseDto>>(emptyList())
-
     private val _exitsWithoutArrival = MutableStateFlow<List<ExitsNullArrivalDto>>(emptyList())
 
+    private val _cars = MutableStateFlow<List<CarsResponseDto>>(emptyList())
+
+
     val exits: MutableStateFlow<List<ExitResponseDto>> = _exits
+    val exitsWithoutArrival: MutableStateFlow<List<ExitsNullArrivalDto>> = _exitsWithoutArrival
     val arrivals: MutableStateFlow<List<ArrivalResponseDto>> = _arrivals
 
-    val exitsWithoutArrival: MutableStateFlow<List<ExitsNullArrivalDto>> = _exitsWithoutArrival
+    val cars: MutableStateFlow<List<CarsResponseDto>> = _cars
+
 
     fun getExits() {
         viewModelScope.launch {
@@ -93,6 +99,24 @@ class HomeViewModel @Inject constructor() : ViewModel() {
                     "CALL the of method getArrivals",
                     "$e"
                 )
+            }
+        }
+    }
+
+    fun getCars() {
+        viewModelScope.launch {
+            try {
+                val remote = RetrofitClient.getService(CarService::class.java)
+                val response = remote.getCars( "Bearer " +
+                    SharedPreference.getString(
+                        Constants.SharedPreference.file_user.keyToken,
+                        ""
+                    )
+                )
+
+                _cars.value = response
+            } catch (e: Exception) {
+                Log.e("ERROR Function getCars", "$e")
             }
         }
     }
