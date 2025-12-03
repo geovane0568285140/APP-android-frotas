@@ -14,11 +14,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
+import androidx.compose.material.icons.filled.Build
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,7 +30,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.LifecycleResumeEffect
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.NavController
+import com.example.appfrotas.ServiceApp.remote.DTOs.Response.CarsResponseDto
+import com.example.appfrotas.ui.theme.Purple40
+import com.example.appfrotas.view.viewmodel.HomeViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun ExitScreen(navController: NavController) {
@@ -37,9 +46,17 @@ fun ExitScreen(navController: NavController) {
     var numKm by remember { mutableStateOf("") }
     var textObservation by remember { mutableStateOf("") }
 
-    //apagar depois, apenas por agora ate conectar api
-    val saidas = listOf("01/10", "02/10", "03/10", "04/10")
+    val viewModel: HomeViewModel = viewModel()
 
+    LifecycleResumeEffect(Unit) {
+        viewModel.getLastUsedCars()
+        onPauseOrDispose {  }
+    }
+
+    //apagar depois, apenas por agora ate conectar api
+    //val saidas = listOf("01/10", "02/10", "03/10", "04/10")
+
+    val cars: List<CarsResponseDto> by viewModel.cars.collectAsState()
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
@@ -66,7 +83,8 @@ fun ExitScreen(navController: NavController) {
         )
 
 
-        saidas.forEach { data ->
+        cars.forEach { data ->
+
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(vertical = 4.dp)
@@ -74,17 +92,17 @@ fun ExitScreen(navController: NavController) {
                 Box(
                     modifier = Modifier
                         .size(36.dp)
-                        .background(Color.Red, CircleShape),
+                        .background(Purple40, CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ExitToApp,
-                        contentDescription = "saida",
+                        imageVector = Icons.Filled.Build,
+                        contentDescription = "Cars",
                         tint = Color.White
                     )
                 }
                 Spacer(modifier = Modifier.width(8.dp))
-                Text(data)
+                Text(data.num_car.toString())
             }
         }
 

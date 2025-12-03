@@ -9,4 +9,7 @@ interface CarService {
     @GET("cars/getCarsUuidNumCars")
     suspend fun getCars(@Header("Authorization") token: String): List<CarsResponseDto>
 
+    @GET("cars/getLastUsedCars")
+    suspend fun getLastUsedCars(@Header("Authorization") tokne: String): List<CarsResponseDto>
+
 }

@@ -46,7 +46,6 @@ fun FrotasScreen(navController: NavController) {
         viewModel.getCars()
         onPauseOrDispose {  }
     }
-    viewModel.getCars()
     var acars = listOf<String>("1", "2", "3", "4")
 
     val cars: List<CarsResponseDto> by viewModel.cars.collectAsState()

@@ -1,12 +1,11 @@
 package com.example.appfrotas.view.viewmodel
 
-import android.media.session.MediaSession
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.appfrotas.ServiceApp.Constants
-import com.example.appfrotas.ServiceApp.SharedPreferenceCripty.SharedPreference
 import com.example.appfrotas.ServiceApp.remote.DTOs.Request.ArrivalRequestDto
+import com.example.appfrotas.ServiceApp.remote.DTOs.Request.ExitCreateRequestDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ArrivalResponseDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.CarsResponseDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitResponseDto
@@ -26,6 +25,7 @@ class HomeViewModel @Inject constructor() : ViewModel() {
 
     /*    val chegadas = listOf("01/10", "02/10", "03/10", "04/10")
     val saidas = listOf("01/10", "02/10", "03/10", "04/10", "05/10")*/
+    private val constPref = Constants.SharedPreference.file_user
 
     private val _arrivals = MutableStateFlow<List<ArrivalResponseDto>>(emptyList())
     private val _exits = MutableStateFlow<List<ExitResponseDto>>(emptyList())
@@ -47,10 +47,7 @@ class HomeViewModel @Inject constructor() : ViewModel() {
                 val remote = RetrofitClient.getService(ExitService::class.java)
                 val response = remote.getExtis(
                     "Bearer " +
-                            SharedPreference.getString(
-                                Constants.SharedPreference.file_user.keyToken,
-                                ""
-                            )
+                            TokenResponseAuth.getToken()
                 )
                 _exits.value = response
             } catch (e: Exception) {
@@ -70,10 +67,7 @@ class HomeViewModel @Inject constructor() : ViewModel() {
                 val response =
                     remote.getExitsWithoutArrival(
                         "Bearer " +
-                                SharedPreference.getString(
-                                    Constants.SharedPreference.file_user.keyToken,
-                                    ""
-                                )
+                                TokenResponseAuth.getToken()
                     )
                 _exitsWithoutArrival.value = response
             } catch (e: Exception) {
@@ -87,10 +81,7 @@ class HomeViewModel @Inject constructor() : ViewModel() {
             try {
                 val remote = RetrofitClient.getService(ArrivalService::class.java)
                 val response = remote.getArrivals(
-                    "Bearer " + SharedPreference.getString(
-                        Constants.SharedPreference.file_user.keyToken,
-                        ""
-                    )
+                    "Bearer " + TokenResponseAuth.getToken()
                 )
 
                 _arrivals.value = response
@@ -107,16 +98,40 @@ class HomeViewModel @Inject constructor() : ViewModel() {
         viewModelScope.launch {
             try {
                 val remote = RetrofitClient.getService(CarService::class.java)
-                val response = remote.getCars( "Bearer " +
-                    SharedPreference.getString(
-                        Constants.SharedPreference.file_user.keyToken,
-                        ""
-                    )
+                val response = remote.getCars(
+                    "Bearer " +
+                            TokenResponseAuth.getToken()
                 )
 
                 _cars.value = response
             } catch (e: Exception) {
                 Log.e("ERROR Function getCars", "$e")
+            }
+        }
+    }
+
+    fun getLastUsedCars() {
+        viewModelScope.launch {
+            try {
+                val remote = RetrofitClient.getService(CarService::class.java)
+                val response = remote.getLastUsedCars(
+                    "Bearer " + TokenResponseAuth.getToken()
+                )
+
+                _cars.value = response
+            } catch (e: Exception) {
+                Log.e("Error function getLastUsedCars", "$e")
+            }
+        }
+    }
+
+    fun createExit(km_exit: Int, fk_car_frota: String, fk_car_request: String? = null, fk_observation: String? = null) {
+        viewModelScope.launch {
+            try {
+                val remote = RetrofitClient.getService(ExitService::class.java)
+                remote.createExits("Bearer " + TokenResponseAuth.getToken(), ExitCreateRequestDto(fk_car_frota, fk_car_request, fk_observation, km_exit))
+            } catch (e: Exception) {
+                Log.e("Error - function createExit", "$e")
             }
         }
     }
