@@ -3,6 +3,5 @@ package com.example.appfrotas.view.viewmodel
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject
 
-
-class HomeViewModel @Inject constructor(): ViewModel() {
+class CreatedArrivalViewModel @Inject constructor(): ViewModel() {
 }

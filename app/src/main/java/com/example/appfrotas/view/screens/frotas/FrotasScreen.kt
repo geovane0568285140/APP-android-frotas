@@ -32,15 +32,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.CarsResponseDto
 import com.example.appfrotas.ui.theme.Purple40
-import com.example.appfrotas.view.viewmodel.HomeViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
+import com.example.appfrotas.view.viewmodel.GETsViewModel
 
 @Composable
 fun FrotasScreen(navController: NavController) {
 
     var text by remember { mutableStateOf("") }
 
-    val viewModel: HomeViewModel = viewModel()
+    val viewModel: GETsViewModel = viewModel()
 
     LifecycleResumeEffect(Unit) {
         viewModel.getCars()

@@ -6,7 +6,7 @@ import com.example.appfrotas.ServiceApp.Constants
 import com.example.appfrotas.ServiceApp.SharedPreferenceCripty.SharedPreference
 import com.example.appfrotas.ServiceApp.local.Converters
 import com.example.appfrotas.ServiceApp.remote.DTOs.Request.AuthRequestDto
-import com.example.appfrotas.ServiceApp.remote.repository.RetrofitClient
+import com.example.appfrotas.ServiceApp.remote.RetrofitClient
 import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.AuthService
 import java.time.Duration
 import java.time.LocalDateTime
