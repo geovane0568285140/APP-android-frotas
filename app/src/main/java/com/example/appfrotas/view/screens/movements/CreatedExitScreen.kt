@@ -1,6 +1,7 @@
 package com.example.appfrotas.view.screens.movements
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -35,6 +36,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.NavController
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.CarsResponseDto
+import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitsNullArrivalDto
+import com.example.appfrotas.ui.theme.Gray
 import com.example.appfrotas.ui.theme.Purple40
 import com.example.appfrotas.view.viewmodel.HomeViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,12 +48,13 @@ fun ExitScreen(navController: NavController) {
     var textCar by remember { mutableStateOf("") }
     var numKm by remember { mutableStateOf("") }
     var textObservation by remember { mutableStateOf("") }
+    var itemSelecionado: CarsResponseDto? by remember { mutableStateOf<CarsResponseDto?>(null) }
 
     val viewModel: HomeViewModel = viewModel()
 
     LifecycleResumeEffect(Unit) {
         viewModel.getLastUsedCars()
-        onPauseOrDispose {  }
+        onPauseOrDispose { }
     }
 
     //apagar depois, apenas por agora ate conectar api
@@ -84,15 +88,18 @@ fun ExitScreen(navController: NavController) {
 
 
         cars.forEach { data ->
+            val selecionado = itemSelecionado == data
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(vertical = 4.dp)
+                modifier = Modifier
+                    .padding(vertical = 4.dp)
+                    .clickable { itemSelecionado = data }
             ) {
                 Box(
                     modifier = Modifier
                         .size(36.dp)
-                        .background(Purple40, CircleShape),
+                        .background(if (selecionado) Purple40 else Gray, CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
@@ -119,8 +126,17 @@ fun ExitScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(10.dp))
 
         Button(
-            onClick = { navController.navigate("home") },
-            modifier = Modifier.fillMaxWidth().padding(8.dp)
+            onClick = {
+                viewModel.createExit(
+                    numKm.toInt(),
+                    itemSelecionado?.id_frota ?: "",
+                    observation = textObservation
+                )
+                navController.navigate("home")
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
         ) {
             Text("Enviar Saida")
         }

@@ -125,11 +125,11 @@ class HomeViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun createExit(km_exit: Int, fk_car_frota: String, fk_car_request: String? = null, fk_observation: String? = null) {
+    fun createExit(km_exit: Int, fk_car_frota: String, fk_car_request: String? = null, observation: String? = null) {
         viewModelScope.launch {
             try {
                 val remote = RetrofitClient.getService(ExitService::class.java)
-                remote.createExits("Bearer " + TokenResponseAuth.getToken(), ExitCreateRequestDto(fk_car_frota, fk_car_request, fk_observation, km_exit))
+                remote.createExits("Bearer " + TokenResponseAuth.getToken(), ExitCreateRequestDto(fk_car_frota, fk_car_request, observation, km_exit))
             } catch (e: Exception) {
                 Log.e("Error - function createExit", "$e")
             }

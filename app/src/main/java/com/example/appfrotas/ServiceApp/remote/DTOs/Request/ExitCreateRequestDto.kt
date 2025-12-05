@@ -10,7 +10,7 @@ data class ExitCreateRequestDto(
     @SerializedName("fk_car_request")
     val fk_car_request: String?,
 
-    @SerializedName("fk_observation")
+    @SerializedName("observation")
     val observation: String?,
 
     @SerializedName("km_exit")
