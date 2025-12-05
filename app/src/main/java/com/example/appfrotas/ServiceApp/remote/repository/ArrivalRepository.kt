@@ -21,7 +21,7 @@ class ArrivalRepository {
 
     suspend fun findArrivals(): Response<List<ArrivalResponseDto>> {
         try {
-            return remote.getArrivals("Baerer " + TokenResponseAuth.getToken())
+            return remote.getArrivals("Bearer " + TokenResponseAuth.getToken())
         } catch (e: Exception) {
             Log.e("ERROR method findArrivals in class ArrivalRepository", "$e")
             // return Response.error(404,  "Erro desconhecido".toResponseBody("text/plain".toMediaType()))
@@ -33,7 +33,7 @@ class ArrivalRepository {
         var code = 501
         try {
             val token = "Bearer " + TokenResponseAuth.getToken()
-            code = remote.createArrival(token, ArrivalRequestDto(fk_exit, observation, km_arrival)).code
+            code = remote.createArrival(token, ArrivalRequestDto(fk_exit, observation, km_arrival)).code()
             if (code >= 200 && code <= 299)
                 return code
             else throw Exception("Return the of code error")

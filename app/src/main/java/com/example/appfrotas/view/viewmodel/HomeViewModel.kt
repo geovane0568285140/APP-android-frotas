@@ -1,5 +1,6 @@
 package com.example.appfrotas.view.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ArrivalResponseDto
@@ -31,11 +32,10 @@ class HomeViewModel @Inject constructor(): ViewModel() {
         }
     }
 
-    fun getArrivals(){
+    fun getArrivals() {
         viewModelScope.launch {
             _arrivals.value = arrivalepository.findArrivals().body()!!
-            }
+        }
     }
-
 
 }

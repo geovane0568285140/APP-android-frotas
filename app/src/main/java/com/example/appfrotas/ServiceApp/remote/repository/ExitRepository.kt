@@ -47,7 +47,7 @@ class ExitRepository {
             code = remote.createExits(
                 token,
                 ExitCreateRequestDto(fk_car_frota, fk_car_request, observation, km_exit)
-            ).code
+            ).code()
             if (code >= 200 && code <= 299)
                 return code
             else throw Exception("Return the of code error")

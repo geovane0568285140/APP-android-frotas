@@ -24,7 +24,7 @@ import javax.inject.Inject
 class GETsViewModel @Inject constructor() : ViewModel() {
 
     /*    val chegadas = listOf("01/10", "02/10", "03/10", "04/10")
-    val saidas = listOf("01/10", "02/10", "03/10", "04/10", "05/10")*/
+    val saidas = listOf("01/10", "02/10", "03/10", "04/10", "05/10")
 
     private val _arrivals = MutableStateFlow<List<ArrivalResponseDto>>(emptyList())
     private val _exits = MutableStateFlow<List<ExitResponseDto>>(emptyList())
@@ -40,7 +40,7 @@ class GETsViewModel @Inject constructor() : ViewModel() {
     val cars: MutableStateFlow<List<CarsResponseDto>> = _cars
 
 
-    fun getExits() {
+   fun getExits() {
         viewModelScope.launch {
             try {
                 val remote = RetrofitClient.getService(ExitService::class.java)
@@ -74,7 +74,7 @@ class GETsViewModel @Inject constructor() : ViewModel() {
             }
         }
     }
-/*
+
     fun getArrivals() {
         viewModelScope.launch {
             try {
@@ -122,7 +122,7 @@ class GETsViewModel @Inject constructor() : ViewModel() {
                 Log.e("Error function getLastUsedCars", "$e")
             }
         }
-    } */
+    }
 
     fun formaterDDMM(dataTimeString: String): String {
 
@@ -131,5 +131,6 @@ class GETsViewModel @Inject constructor() : ViewModel() {
 
         return "$dia/$mes"
     }
+    */
 
 }

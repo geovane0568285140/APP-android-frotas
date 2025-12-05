@@ -38,6 +38,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.appfrotas.ServiceApp.local.Converters
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitsNullArrivalDto
+import com.example.appfrotas.view.viewmodel.CreatedArrivalViewModel
 import com.example.appfrotas.view.viewmodel.CreatedExitViewModel
 
 @Composable
@@ -48,7 +49,7 @@ fun ArrivalScreen(navController: NavController) {
 
     var numKm by remember { mutableStateOf<String>("") }
 
-    val viewModel: CreatedExitViewModel = viewModel()
+    val viewModel: CreatedArrivalViewModel = viewModel()
     //val exitViewModel: GETsViewModel = viewModel()
     //val exitViewModel: POSTsViewModel = viewModel()
 

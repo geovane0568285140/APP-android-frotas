@@ -18,6 +18,6 @@ interface ExitService {
     suspend fun getExitsWithoutArrival(@Header("Authorization") token: String?): Response<List<ExitsNullArrivalDto>>
 
     @POST("exit/create")
-    suspend fun createExits(@Header("Authorization") token: String, @Body request: ExitCreateRequestDto): okhttp3.Response
+    suspend fun createExits(@Header("Authorization") token: String, @Body request: ExitCreateRequestDto): Response<Unit>
 
 }

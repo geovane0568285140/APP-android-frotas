@@ -36,8 +36,8 @@ import androidx.navigation.NavController
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.CarsResponseDto
 import com.example.appfrotas.ui.theme.Gray
 import com.example.appfrotas.ui.theme.Purple40
+import com.example.appfrotas.view.viewmodel.CreatedExitViewModel
 import com.example.appfrotas.view.viewmodel.GETsViewModel
-import com.example.appfrotas.view.viewmodel.POSTsViewModel
 
 @Composable
 fun ExitScreen(navController: NavController) {
@@ -47,18 +47,17 @@ fun ExitScreen(navController: NavController) {
     var textObservation by remember { mutableStateOf("") }
     var itemSelecionado: CarsResponseDto? by remember { mutableStateOf<CarsResponseDto?>(null) }
 
-    val getsviewModel: GETsViewModel = viewModel()
-    val postsViewModel: POSTsViewModel = viewModel()
+    val viewModel: CreatedExitViewModel = viewModel()
 
     LifecycleResumeEffect(Unit) {
-        getsviewModel.getLastUsedCars()
+        viewModel.getLastUsedCars()
         onPauseOrDispose { }
     }
 
     //apagar depois, apenas por agora ate conectar api
     //val saidas = listOf("01/10", "02/10", "03/10", "04/10")
 
-    val cars: List<CarsResponseDto> by getsviewModel.cars.collectAsState()
+    val cars: List<CarsResponseDto> by viewModel.cars.collectAsState()
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
@@ -125,7 +124,7 @@ fun ExitScreen(navController: NavController) {
 
         Button(
             onClick = {
-                getsviewModel.createExit(
+                viewModel.createExit(
                     numKm.toInt(),
                     itemSelecionado?.id_frota ?: "",
                     observation = textObservation

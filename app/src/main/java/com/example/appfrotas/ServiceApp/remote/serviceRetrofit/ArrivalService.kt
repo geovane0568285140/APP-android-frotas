@@ -14,7 +14,7 @@ interface ArrivalService {
     suspend fun getArrivals(@Header("Authorization") token: String?): Response<List<ArrivalResponseDto>>
 
     @POST("arrival/create")
-    suspend fun createArrival(@Header("Authorization") token: String?, @Body request: ArrivalRequestDto): okhttp3.Response
+    suspend fun createArrival(@Header("Authorization") token: String?, @Body request: ArrivalRequestDto): Response<Unit>
 
 }
 

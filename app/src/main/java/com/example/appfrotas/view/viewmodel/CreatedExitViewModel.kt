@@ -2,31 +2,39 @@ package com.example.appfrotas.view.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.appfrotas.ServiceApp.remote.DTOs.Response.CarsResponseDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitsNullArrivalDto
 import com.example.appfrotas.ServiceApp.remote.repository.ArrivalRepository
+import com.example.appfrotas.ServiceApp.remote.repository.CarRepository
 import com.example.appfrotas.ServiceApp.remote.repository.ExitRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class CreatedExitViewModel: ViewModel() {
+class CreatedExitViewModel : ViewModel() {
 
     private val exitRepository = ExitRepository()
-    private val arrivalRepository = ArrivalRepository()
-    private val _exitsWithoutArrival = MutableStateFlow<List<ExitsNullArrivalDto>>(emptyList())
+    private val carRepository = CarRepository()
+    private val _cars = MutableStateFlow<List<CarsResponseDto>>(emptyList())
 
-    val exitsWithoutArrival: MutableStateFlow<List<ExitsNullArrivalDto>> = _exitsWithoutArrival
+    val cars: MutableStateFlow<List<CarsResponseDto>> = _cars
 
-    fun getExitsWithoutArrival(){
+    fun getLastUsedCars() {
         viewModelScope.launch {
-            _exitsWithoutArrival.value = exitRepository.findExitsWithoutArrival().body()!!
+            _cars.value = carRepository.getLastUsedCars().body()!!
         }
     }
 
-    fun createArrivals(fk_exit: String, observation: String, km_arrival: String){
+    fun createExit(
+        km_exit: Int,
+        fk_car_frota: String,
+        fk_car_request: String? = null,
+        observation: String? = null
+    ) {
         viewModelScope.launch {
-            arrivalRepository.createArrivals(fk_exit, observation, km_arrival.toInt())
+            exitRepository.createExit(km_exit, fk_car_frota, fk_car_request, observation)
         }
     }
+
 }
