@@ -74,7 +74,7 @@ class GETsViewModel @Inject constructor() : ViewModel() {
             }
         }
     }
-
+/*
     fun getArrivals() {
         viewModelScope.launch {
             try {
@@ -122,7 +122,7 @@ class GETsViewModel @Inject constructor() : ViewModel() {
                 Log.e("Error function getLastUsedCars", "$e")
             }
         }
-    }
+    } */
 
     fun formaterDDMM(dataTimeString: String): String {
 

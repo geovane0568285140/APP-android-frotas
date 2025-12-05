@@ -46,13 +46,4 @@ class POSTsViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun createCars(){
-        viewModelScope.launch {
-            try {
-
-            } catch (e: Exception){
-
-            }
-        }
-    }
 }

@@ -19,4 +19,14 @@ class Converters {
         return LocalDateTime.parse(dateTimeString, formatter)
     }
 
+    companion object{
+        fun formaterDDMM(dataTimeString: String): String {
+
+            val dia = dataTimeString.substring(8, 10)
+            val mes = dataTimeString.substring(5, 7)
+
+            return "$dia/$mes"
+        }
+    }
+
 }

@@ -36,9 +36,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.appfrotas.ServiceApp.local.Converters
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitsNullArrivalDto
-import com.example.appfrotas.view.viewmodel.GETsViewModel
-import com.example.appfrotas.view.viewmodel.POSTsViewModel
+import com.example.appfrotas.view.viewmodel.CreatedExitViewModel
 
 @Composable
 fun ArrivalScreen(navController: NavController) {
@@ -48,14 +48,15 @@ fun ArrivalScreen(navController: NavController) {
 
     var numKm by remember { mutableStateOf<String>("") }
 
-    val getsViewModel: GETsViewModel = viewModel()
-    val postsViewModel: POSTsViewModel = viewModel()
+    val viewModel: CreatedExitViewModel = viewModel()
+    //val exitViewModel: GETsViewModel = viewModel()
+    //val exitViewModel: POSTsViewModel = viewModel()
 
     LaunchedEffect(Unit) {
-        getsViewModel.getExitsWithoutArrival()
+        viewModel.getExitsWithoutArrival()
     }
 
-    val exitsWithoutArrival: List<ExitsNullArrivalDto> by getsViewModel.exitsWithoutArrival.collectAsState()
+    val exitsWithoutArrival: List<ExitsNullArrivalDto> by viewModel.exitsWithoutArrival.collectAsState()
 
     val saidas = listOf("01/10", "02/10", "03/10", "04/10")
 
@@ -121,7 +122,7 @@ fun ArrivalScreen(navController: NavController) {
                     }
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = getsViewModel.formaterDDMM(data.date_exit),
+                        text = Converters.formaterDDMM(data.date_exit),
                         color = Color.Black
                     )
                 }
@@ -146,7 +147,7 @@ fun ArrivalScreen(navController: NavController) {
 
         Button(
             onClick = {
-                postsViewModel.createArrivals(
+                viewModel.createArrivals(
                     itemSelecionado?.id_exit ?: "",
                     observation,
                     numKm

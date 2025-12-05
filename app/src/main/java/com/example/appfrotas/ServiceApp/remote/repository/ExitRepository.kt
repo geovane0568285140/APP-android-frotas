@@ -9,28 +9,29 @@ import com.example.appfrotas.ServiceApp.remote.RetrofitClient
 import com.example.appfrotas.ServiceApp.remote.TokenResponseAuth
 import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.ExitService
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class ExitRepository {
 
     private val remote = RetrofitClient.getService(ExitService::class.java)
 
 
-    suspend fun findExits(): List<ExitResponseDto>? {
+    suspend fun findExits(): Response<List<ExitResponseDto>> {
         try {
             return remote.getExtis("Bearer " + TokenResponseAuth.getToken())
         } catch (e: Exception) {
             Log.e("ERROR method findExits in class ExitRepository", "$e")
-            return null
+            return Response.success(404, emptyList<ExitResponseDto>())
         }
     }
 
 
-    suspend fun findExitsWithoutArrival(): List<ExitsNullArrivalDto>? {
+    suspend fun findExitsWithoutArrival(): Response<List<ExitsNullArrivalDto>> {
         try {
             return remote.getExitsWithoutArrival("Bearer " + TokenResponseAuth.getToken())
         } catch (e: Exception) {
             Log.e("ERROR method findExitsWithoutArrival in class ExitRepository", "$e")
-            return null
+            return Response.success(404, emptyList<ExitsNullArrivalDto>())
         }
     }
 

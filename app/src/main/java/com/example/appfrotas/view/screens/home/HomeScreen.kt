@@ -36,9 +36,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.appfrotas.ServiceApp.local.Converters
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ArrivalResponseDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitResponseDto
-import com.example.appfrotas.view.viewmodel.GETsViewModel
+import com.example.appfrotas.view.viewmodel.HomeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,20 +48,20 @@ fun HomeScreen(navController: NavController) {
     // val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     // val scope = rememberCoroutineScope()
 
-    val viewModel: GETsViewModel = viewModel()
+    val homeViewModel: HomeViewModel = viewModel()
     var text by remember { mutableStateOf("") }
 
     LifecycleResumeEffect(Unit) {
-        viewModel.getExits()
-        viewModel.getArrivals()
+        homeViewModel.getExits()
+        homeViewModel.getArrivals()
 
         onPauseOrDispose {
         }
     }
 
 
-    val exits: List<ExitResponseDto> by viewModel.exits.collectAsState()
-    val arrivals: List<ArrivalResponseDto> by viewModel.arrivals.collectAsState()
+    val exits: List<ExitResponseDto> by homeViewModel.exits.collectAsState()
+    val arrivals: List<ArrivalResponseDto> by homeViewModel.arrivals.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -145,7 +146,7 @@ fun HomeScreen(navController: NavController) {
                             )
                         }
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(viewModel.formaterDDMM(data.date_arrival))
+                        Text(Converters.formaterDDMM(data.date_arrival))
                     }
                 }
             }
@@ -181,7 +182,7 @@ fun HomeScreen(navController: NavController) {
                             )
                         }
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(viewModel.formaterDDMM(data.date_exit))
+                        Text(Converters.formaterDDMM(data.date_exit))
                     }
                 }
             }
