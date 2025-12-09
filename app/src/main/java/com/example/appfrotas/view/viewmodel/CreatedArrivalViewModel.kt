@@ -11,7 +11,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CreatedArrivalViewModel @Inject constructor(): ViewModel() {
+class
+
+CreatedArrivalViewModel @Inject constructor(): ViewModel() {
 
     private val exitRepository = ExitRepository()
     private val arrivalRepository = ArrivalRepository()

@@ -14,9 +14,9 @@ interface CarService {
     suspend fun getCars(@Header("Authorization") token: String): Response<List<CarsResponseDto>>
 
     @GET("cars/getLastUsedCars")
-    suspend fun getLastUsedCars(@Header("Authorization") tokne: String): Response<List<CarsResponseDto>>
+    suspend fun getLastUsedCars(@Header("Authorization") token: String): Response<List<CarsResponseDto>>
 
     @POST("cars/create")
-    suspend fun createCars(@Header("Authorization") token: String, @Body request: CarsCreateRequestDto): okhttp3.Response
+    suspend fun createCars(@Header("Authorization") token: String, @Body request: CarsCreateRequestDto): Response<Unit>
 
 }

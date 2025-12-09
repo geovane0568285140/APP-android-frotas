@@ -18,10 +18,10 @@ data class CarsCreateRequestDto(
     val mark: String,
 
     @SerializedName("manufaturing_year")
-    val manufaturing_year: LocalDateTime,
+    val manufaturing_year: String,
 
     @SerializedName("model_year")
-    val model_year: LocalDateTime,
+    val model_year: String?,
 
     @SerializedName("color")
     val color: String,
@@ -39,10 +39,13 @@ data class CarsCreateRequestDto(
     val num_crlv: String,
 
     @SerializedName("date_licensing")
-    val date_licensing: LocalDateTime,
+    val date_licensing: String?,
 
     @SerializedName("date_maturity_IPVA")
-    val date_maturity_IPVA: String
+    val date_maturity_IPVA: String?,
+
+    @SerializedName("num_car")
+    val num_car: Int
 )
 
 /*

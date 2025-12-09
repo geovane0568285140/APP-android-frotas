@@ -100,7 +100,7 @@ fun MainScreen() {
                 composable("user") { UserScreen() }
                 composable("created_exit") { ExitScreen(navController) }
                 composable("created_arrival") { ArrivalScreen(navController) }
-                composable("register-frotas") { FrotaRegisterScreen() }
+                composable("register-frotas") { FrotaRegisterScreen(navController) }
             }
         }
     }

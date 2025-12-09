@@ -1,5 +1,6 @@
 package com.example.appfrotas.view.screens.frotas
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,15 +9,24 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Button
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,11 +34,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.example.appfrotas.view.viewmodel.FrotasRegisterViewModel
+import java.time.Instant
+import java.time.ZoneId
+import kotlin.time.Duration.Companion.milliseconds
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FrotaRegisterScreen() {
+fun FrotaRegisterScreen(navController: NavController) {
 
+    val viewModel: FrotasRegisterViewModel = viewModel()
+
+    var num_car by remember { mutableStateOf("") }
     var model by remember { mutableStateOf("") }
     var license_plate by remember { mutableStateOf("") }
     var mark by remember { mutableStateOf("") }
@@ -40,7 +59,6 @@ fun FrotaRegisterScreen() {
     var num_crlv by remember { mutableStateOf("") }
     var date_licensing by remember { mutableStateOf("") }
     var date_maturity_IPVA by remember { mutableStateOf("") }
-
     var expanded by remember { mutableStateOf(false) }
     var fuel_type by remember { mutableStateOf("") }
     val tiposCombustivel = listOf(
@@ -57,13 +75,29 @@ fun FrotaRegisterScreen() {
         "Biodiesel",
         "Hidrogênio"
     )
+    var showDatePicker by remember { mutableStateOf(false) }
 
-    Column(modifier = Modifier.padding(8.dp).verticalScroll(rememberScrollState())) {
+    Column(
+        modifier = Modifier
+            .padding(8.dp)
+            .verticalScroll(rememberScrollState())
+    ) {
 
+        OutlinedTextField(
+            value = num_car,
+            label = { Text("Numero do veículo (Identificação)") },
+            onValueChange = { newNum_car -> num_car = newNum_car },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = KeyboardType.Number
+            )
+        )
         OutlinedTextField(
             value = license_plate,
             label = { Text("Placa do veículo") },
-            onValueChange = {newLicense_plate -> license_plate = newLicense_plate},
+            onValueChange = { newLicense_plate -> license_plate = newLicense_plate },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
@@ -90,8 +124,40 @@ fun FrotaRegisterScreen() {
             label = { Text("Ano do fabricação") },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(8.dp),
+            trailingIcon = {
+                IconButton(onClick = {showDatePicker = true}) {
+                    Icon(
+                        imageVector = Icons.Default.DateRange,
+                        contentDescription = "Select Date"
+                    )
+                }
+            }
         )
+
+        if (showDatePicker) {
+            val state = rememberDatePickerState()
+
+            DatePickerDialog(
+                onDismissRequest = { showDatePicker = false },
+                confirmButton = {
+                    TextButton(onClick = { showDatePicker = false }) {
+                        Text("OK")
+                    }
+                }
+            ) {
+                DatePicker(state = state)
+
+                LaunchedEffect(state.selectedDateMillis) {
+                    state.selectedDateMillis?.let { millis ->
+                        val date = Instant.ofEpochMilli(millis)
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDate()
+                    }
+                }
+            }
+        }
+
         OutlinedTextField(
             value = model_year,
             onValueChange = { newModel_year -> model_year = newModel_year },
@@ -189,9 +255,27 @@ fun FrotaRegisterScreen() {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        Button(onClick = {}, modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth()) {
+        Button(
+            onClick = {
+                viewModel.createCar(
+                    license_plate,
+                    model,
+                    mark,
+                    manufaturing_year,
+                    model_year,
+                    color,
+                    category,
+                    fuel_type,
+                    current_mileage,
+                    num_crlv,
+                    date_licensing,
+                    date_maturity_IPVA,
+                    num_car.toInt()
+                )
+            }, modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth()
+        ) {
             Text("Cadastrar Frota")
         }
 
