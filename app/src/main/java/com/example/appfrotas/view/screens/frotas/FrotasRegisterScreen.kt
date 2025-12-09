@@ -16,28 +16,30 @@ import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.appfrotas.view.viewmodel.FrotasRegisterViewModel
 import java.time.Instant
+import java.time.Year
 import java.time.ZoneId
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -57,9 +59,15 @@ fun FrotaRegisterScreen(navController: NavController) {
     var category by remember { mutableStateOf("") }
     var current_mileage by remember { mutableStateOf("") }
     var num_crlv by remember { mutableStateOf("") }
+
     var date_licensing by remember { mutableStateOf("") }
+    var dateTime_licensing by remember { mutableStateOf("") }
     var date_maturity_IPVA by remember { mutableStateOf("") }
-    var expanded by remember { mutableStateOf(false) }
+    var dateTime_maturity_IPVA by remember { mutableStateOf("") }
+
+    var expanded_fuel_type by remember { mutableStateOf(false) }
+    var expanded_manufaturing_year by remember { mutableStateOf(false) }
+    var expanded_model_year by remember { mutableStateOf(false) }
     var fuel_type by remember { mutableStateOf("") }
     val tiposCombustivel = listOf(
         "Gasolina",
@@ -76,6 +84,14 @@ fun FrotaRegisterScreen(navController: NavController) {
         "Hidrogênio"
     )
     var showDatePicker by remember { mutableStateOf(false) }
+    var selectOutLine by remember { mutableStateOf("") }
+
+
+    val currentYear = Year.now().value
+
+    val years = remember {
+        ((currentYear - 20)..(currentYear + 2)).toList()
+    }
 
     Column(
         modifier = Modifier
@@ -118,54 +134,84 @@ fun FrotaRegisterScreen(navController: NavController) {
                 .fillMaxWidth()
                 .padding(8.dp)
         )
-        OutlinedTextField(
-            value = manufaturing_year,
-            onValueChange = { newManufaturing_year -> manufaturing_year = newManufaturing_year },
-            label = { Text("Ano do fabricação") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp),
-            trailingIcon = {
-                IconButton(onClick = {showDatePicker = true}) {
-                    Icon(
-                        imageVector = Icons.Default.DateRange,
-                        contentDescription = "Select Date"
+
+        ExposedDropdownMenuBox(
+            expanded = expanded_manufaturing_year,
+            onExpandedChange = { expanded_manufaturing_year = !expanded_manufaturing_year }
+        ) {
+
+            OutlinedTextField(
+                value = manufaturing_year,
+                onValueChange = { newManufaturing_year ->
+                    manufaturing_year = newManufaturing_year
+                },
+                label = { Text("Ano do fabricação") },
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded_manufaturing_year) },
+                modifier = Modifier
+                    .menuAnchor(type = ExposedDropdownMenuAnchorType.PrimaryNotEditable, true)
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = KeyboardType.Number
+                )
+            )
+
+            ExposedDropdownMenu(
+                expanded = expanded_manufaturing_year,
+                onDismissRequest = { expanded_manufaturing_year = false }
+            ) {
+                years.forEach { years ->
+                    DropdownMenuItem(
+                        text = { Text(years.toString()) },
+                        onClick = {
+                            manufaturing_year = years.toString()
+                            expanded_manufaturing_year = false
+                        }
                     )
                 }
             }
-        )
 
-        if (showDatePicker) {
-            val state = rememberDatePickerState()
-
-            DatePickerDialog(
-                onDismissRequest = { showDatePicker = false },
-                confirmButton = {
-                    TextButton(onClick = { showDatePicker = false }) {
-                        Text("OK")
-                    }
-                }
-            ) {
-                DatePicker(state = state)
-
-                LaunchedEffect(state.selectedDateMillis) {
-                    state.selectedDateMillis?.let { millis ->
-                        val date = Instant.ofEpochMilli(millis)
-                            .atZone(ZoneId.systemDefault())
-                            .toLocalDate()
-                    }
-                }
-            }
         }
 
-        OutlinedTextField(
-            value = model_year,
-            onValueChange = { newModel_year -> model_year = newModel_year },
-            label = { Text("Ano do modelo") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-        )
+        ExposedDropdownMenuBox(
+            expanded_model_year,
+            onExpandedChange = { expanded_model_year = !expanded_model_year }
+        ) {
+
+
+            OutlinedTextField(
+                value = model_year,
+                onValueChange = { newModel_year -> model_year = newModel_year },
+                label = { Text("Ano do modelo") },
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded_fuel_type) },
+                modifier = Modifier
+                    .menuAnchor(type = ExposedDropdownMenuAnchorType.PrimaryNotEditable, true)
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                keyboardOptions = KeyboardOptions.Default.copy(
+                    keyboardType = KeyboardType.Number
+                )
+            )
+
+
+            ExposedDropdownMenu(
+                expanded_model_year,
+                onDismissRequest = { expanded_model_year = false }
+            ) {
+                years.forEach { years ->
+                    DropdownMenuItem(
+                        text = { Text(years.toString()) },
+                        onClick = {
+                            model_year = years.toString()
+                            expanded_model_year = false
+                        }
+                    )
+                }
+            }
+
+        }
+
+
         OutlinedTextField(
             value = color,
             onValueChange = { newColor -> color = newColor },
@@ -184,8 +230,8 @@ fun FrotaRegisterScreen(navController: NavController) {
         )
 
         ExposedDropdownMenuBox(
-            expanded = expanded,
-            onExpandedChange = { expanded = !expanded }
+            expanded = expanded_fuel_type,
+            onExpandedChange = { expanded_fuel_type = !expanded_fuel_type }
         ) {
             OutlinedTextField(
                 value = fuel_type,
@@ -193,24 +239,27 @@ fun FrotaRegisterScreen(navController: NavController) {
                 readOnly = true,
                 label = { Text("Tipo de combustível") },
                 trailingIcon = {
-                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
+                    ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded_fuel_type)
                 },
                 modifier = Modifier
-                    .menuAnchor(MenuAnchorType.PrimaryNotEditable)
+                    .menuAnchor(
+                        type = ExposedDropdownMenuAnchorType.PrimaryNotEditable,
+                        enabled = true
+                    )
                     .fillMaxWidth()
                     .padding(8.dp)
             )
 
             ExposedDropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false }
+                expanded = expanded_fuel_type,
+                onDismissRequest = { expanded_fuel_type = false }
             ) {
                 tiposCombustivel.forEach { tipo ->
                     DropdownMenuItem(
                         text = { Text(tipo) },
                         onClick = {
                             fuel_type = tipo
-                            expanded = false
+                            expanded_fuel_type = false
                         }
                     )
                 }
@@ -238,19 +287,74 @@ fun FrotaRegisterScreen(navController: NavController) {
         )
         OutlinedTextField(
             value = date_licensing,
-            onValueChange = { newDate_licensing: String -> date_licensing = newDate_licensing },
+            onValueChange = { },
             label = { Text("Data do licenciamento") },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(8.dp),
+            trailingIcon = {
+                IconButton(onClick = {
+                    selectOutLine = "date_licensing"
+                    showDatePicker = true
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.DateRange,
+                        contentDescription = "Select Date"
+                    )
+                }
+            },
+            readOnly = true
         )
+
+        if (showDatePicker) {
+            val state = rememberDatePickerState()
+
+            DatePickerDialog(
+                onDismissRequest = { showDatePicker = false },
+                confirmButton = {
+                    TextButton(onClick = {
+                        if (selectOutLine == "date_licensing") {
+                            date_licensing = state.selectedDateMillis?.let { viewModel.converterMillisDate(it) } ?: ""
+                            dateTime_licensing = state.selectedDateMillis?.let { viewModel.converterMillisDateTime(it) } ?: ""
+                        } else if (selectOutLine == "date_maturity_IPVA") {
+                            date_maturity_IPVA = state.selectedDateMillis?.let { viewModel.converterMillisDate(it) } ?: ""
+                            dateTime_maturity_IPVA = state.selectedDateMillis?.let { viewModel.converterMillisDateTime(it) } ?: ""
+                        }
+
+                        showDatePicker = false
+                    }) {
+                        Text("OK")
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showDatePicker = false }) {
+                        Text("Cancel")
+                    }
+                }
+            ) {
+                DatePicker(state = state)
+            }
+        }
+
         OutlinedTextField(
             value = date_maturity_IPVA,
             onValueChange = { newDate_maturity_IPVA -> date_maturity_IPVA = newDate_maturity_IPVA },
             label = { Text("Data de vencimento do IPVA") },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(8.dp),
+            trailingIcon = {
+                IconButton(onClick = {
+                    selectOutLine = "date_maturity_IPVA"
+                    showDatePicker = true
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.DateRange,
+                        contentDescription = "Select Date"
+                    )
+                }
+            },
+            readOnly = true
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -268,10 +372,11 @@ fun FrotaRegisterScreen(navController: NavController) {
                     fuel_type,
                     current_mileage,
                     num_crlv,
-                    date_licensing,
-                    date_maturity_IPVA,
+                    dateTime_licensing,
+                    dateTime_maturity_IPVA,
                     num_car.toInt()
                 )
+                navController.navigate("frotas")
             }, modifier = Modifier
                 .padding(8.dp)
                 .fillMaxWidth()

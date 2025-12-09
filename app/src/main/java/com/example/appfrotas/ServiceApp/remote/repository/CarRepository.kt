@@ -44,8 +44,8 @@ class CarRepository {
         fuel_type: String,
         current_mileage: String,
         num_crlv: String,
-        date_licensing: String,
-        date_maturity_IPVA: String,
+        dateTime_licensing: String,
+        dateTime_maturity_IPVA: String,
         num_car: Int
     ): Boolean {
         try {
@@ -56,19 +56,15 @@ class CarRepository {
                 model,
                 true,
                 mark,
-                //convert.string_Datatime(manufaturing_year),
-                "2025-09-18T10:30:58",
-                null,
-                //convert.string_Datatime(model_year),
+                manufaturing_year,
+                model_year,
                 color,
                 category,
                 fuel_type,
                 current_mileage,
                 num_crlv,
-                //convert.string_Datatime(date_licensing),
-                null,
-                null,
-                //convert.string_Datatime(date_maturity_IPVA),
+                dateTime_licensing,
+                dateTime_maturity_IPVA,
                 num_car
             )
             val code = remote.createCars(token, carRequest).code()

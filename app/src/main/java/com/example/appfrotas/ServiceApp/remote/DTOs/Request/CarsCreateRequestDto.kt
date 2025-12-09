@@ -39,10 +39,10 @@ data class CarsCreateRequestDto(
     val num_crlv: String,
 
     @SerializedName("date_licensing")
-    val date_licensing: String?,
+    val dateTime_licensing: String?,
 
     @SerializedName("date_maturity_IPVA")
-    val date_maturity_IPVA: String?,
+    val dateTime_maturity_IPVA: String?,
 
     @SerializedName("num_car")
     val num_car: Int

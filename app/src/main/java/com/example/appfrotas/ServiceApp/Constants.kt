@@ -3,9 +3,11 @@ package com.example.appfrotas.ServiceApp
 class Constants private constructor() {
 
 
-    object DateTime {
+    object DateFormatter {
 
         const val dateTime = "dd-MM-yyyy HH:mm"
+
+        const val date = "dd/MM/yyyy"
 
     }
 

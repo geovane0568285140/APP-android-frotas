@@ -37,7 +37,6 @@ import com.example.appfrotas.ServiceApp.remote.DTOs.Response.CarsResponseDto
 import com.example.appfrotas.ui.theme.Gray
 import com.example.appfrotas.ui.theme.Purple40
 import com.example.appfrotas.view.viewmodel.CreatedExitViewModel
-import com.example.appfrotas.view.viewmodel.GETsViewModel
 
 @Composable
 fun ExitScreen(navController: NavController) {

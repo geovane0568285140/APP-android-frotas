@@ -2,6 +2,7 @@ package com.example.appfrotas.view.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.appfrotas.ServiceApp.local.Converters
 import com.example.appfrotas.ServiceApp.remote.repository.CarRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -23,8 +24,8 @@ class FrotasRegisterViewModel : ViewModel() {
         fuel_type: String,
         current_mileage: String,
         num_crlv: String,
-        date_licensing: String,
-        date_maturity_IPVA: String,
+        dateTime_licensing: String,
+        dateTime_maturity_IPVA: String,
         num_car: Int
     ) {
         viewModelScope.launch {
@@ -39,11 +40,19 @@ class FrotasRegisterViewModel : ViewModel() {
                 fuel_type,
                 current_mileage,
                 num_crlv,
-                date_licensing,
-                date_maturity_IPVA,
+                dateTime_licensing,
+                dateTime_maturity_IPVA,
                 num_car
             )
         }
+    }
+
+    fun converterMillisDateTime(millis: Long): String{
+        return Converters.Millis_DateTime(millis)
+    }
+
+    fun converterMillisDate(millis: Long): String{
+        return Converters.Milllis_Date(millis)
     }
     /*
      String license_plate,
