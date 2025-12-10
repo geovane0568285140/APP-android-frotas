@@ -9,12 +9,11 @@ import retrofit2.http.QueryMap
 interface RequestRepository {
 
     @GET("requests/getLastsRequestsALL")
-    suspend fun getRequestsALL(@QueryMap pageable: Map<String, String>): Response<CarRequestResponseDto>
+    suspend fun getRequestsALL(@QueryMap pageable: Map<String, String?>): Response<List<CarRequestResponseDto>>
 
     @GET("requests/getRequestsFilterStatus")
     suspend fun getRequestFilterStatus(
-        @QueryMap pageable: Map<String, String>,
-        @Query("filterStatus", encoded = true) filterStatus: String
-    ): Response<CarRequestResponseDto>
+        @QueryMap params: Map<String, String?>
+    ): Response<List<CarRequestResponseDto>>
 
 }

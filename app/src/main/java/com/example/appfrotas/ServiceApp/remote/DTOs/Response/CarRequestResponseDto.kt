@@ -2,6 +2,7 @@ package com.example.appfrotas.ServiceApp.remote.DTOs.Response
 
 data class CarRequestResponseDto(
     val uuid: String,
+    val n_num: Int,
     val requested_at: String,
     val status: String
 )
