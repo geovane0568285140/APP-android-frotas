@@ -1,25 +1,21 @@
 package com.example.appfrotas.view.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ArrivalResponseDto
-import com.example.appfrotas.ServiceApp.remote.DTOs.Response.CarsResponseDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitResponseDto
-import com.example.appfrotas.ServiceApp.remote.repository.ArrivalRepository
-import com.example.appfrotas.ServiceApp.remote.repository.CarRepository
-import com.example.appfrotas.ServiceApp.remote.repository.ExitRepository
+import com.example.appfrotas.ServiceApp.remote.service.ArrivalService
+import com.example.appfrotas.ServiceApp.remote.service.ExitService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(): ViewModel() {
 
-    private val exitRepository = ExitRepository()
-    private val arrivalepository = ArrivalRepository()
+    private val exitService = ExitService()
+    private val arrivalepository = ArrivalService()
     private val _exits = MutableStateFlow<List<ExitResponseDto>>(emptyList())
     private val _arrivals = MutableStateFlow<List<ArrivalResponseDto>>(emptyList())
 
@@ -28,7 +24,7 @@ class HomeViewModel @Inject constructor(): ViewModel() {
 
     fun getExits() {
         viewModelScope.launch {
-            _exits.value = exitRepository.findExits().body()!!
+            _exits.value = exitService.findExits().body()!!
         }
     }
 

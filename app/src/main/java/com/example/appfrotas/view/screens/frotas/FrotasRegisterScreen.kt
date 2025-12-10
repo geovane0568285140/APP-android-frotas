@@ -61,9 +61,7 @@ fun FrotaRegisterScreen(navController: NavController) {
     var num_crlv by remember { mutableStateOf("") }
 
     var date_licensing by remember { mutableStateOf("") }
-    var dateTime_licensing by remember { mutableStateOf("") }
     var date_maturity_IPVA by remember { mutableStateOf("") }
-    var dateTime_maturity_IPVA by remember { mutableStateOf("") }
 
     var expanded_fuel_type by remember { mutableStateOf(false) }
     var expanded_manufaturing_year by remember { mutableStateOf(false) }
@@ -315,10 +313,8 @@ fun FrotaRegisterScreen(navController: NavController) {
                     TextButton(onClick = {
                         if (selectOutLine == "date_licensing") {
                             date_licensing = state.selectedDateMillis?.let { viewModel.converterMillisDate(it) } ?: ""
-                            dateTime_licensing = state.selectedDateMillis?.let { viewModel.converterMillisDateTime(it) } ?: ""
                         } else if (selectOutLine == "date_maturity_IPVA") {
                             date_maturity_IPVA = state.selectedDateMillis?.let { viewModel.converterMillisDate(it) } ?: ""
-                            dateTime_maturity_IPVA = state.selectedDateMillis?.let { viewModel.converterMillisDateTime(it) } ?: ""
                         }
 
                         showDatePicker = false
@@ -372,8 +368,8 @@ fun FrotaRegisterScreen(navController: NavController) {
                     fuel_type,
                     current_mileage,
                     num_crlv,
-                    dateTime_licensing,
-                    dateTime_maturity_IPVA,
+                    viewModel.converter_ddMMyyyy__yyyyMMdd(date_licensing),
+                    viewModel.converter_ddMMyyyy__yyyyMMdd(date_maturity_IPVA),
                     num_car.toInt()
                 )
                 navController.navigate("frotas")

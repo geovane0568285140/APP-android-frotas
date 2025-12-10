@@ -1,19 +1,16 @@
-package com.example.appfrotas.ServiceApp.remote.repository
+package com.example.appfrotas.ServiceApp.remote.service
 
 import android.util.Log
-import com.example.appfrotas.ServiceApp.local.Converters
 import com.example.appfrotas.ServiceApp.remote.DTOs.Request.CarsCreateRequestDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.CarsResponseDto
 import com.example.appfrotas.ServiceApp.remote.RetrofitClient
 import com.example.appfrotas.ServiceApp.remote.TokenResponseAuth
-import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.CarService
+import com.example.appfrotas.ServiceApp.remote.retrofitRepository.CarRepository
 import retrofit2.Response
-import retrofit2.Retrofit
-import java.time.LocalDateTime
 
-class CarRepository {
+class CarService {
 
-    private val remote = RetrofitClient.getService(CarService::class.java)
+    private val remote = RetrofitClient.getService(CarRepository::class.java)
 
     suspend fun getCars(): Response<List<CarsResponseDto>> {
         try {
@@ -44,13 +41,12 @@ class CarRepository {
         fuel_type: String,
         current_mileage: String,
         num_crlv: String,
-        dateTime_licensing: String,
-        dateTime_maturity_IPVA: String,
+        date_licensing: String,
+        date_maturity_IPVA: String,
         num_car: Int
     ): Boolean {
         try {
             val token = "Bearer " + TokenResponseAuth.getToken()
-            val convert = Converters()
             val carRequest = CarsCreateRequestDto(
                 license_plate,
                 model,
@@ -63,8 +59,8 @@ class CarRepository {
                 fuel_type,
                 current_mileage,
                 num_crlv,
-                dateTime_licensing,
-                dateTime_maturity_IPVA,
+                date_licensing,
+                date_maturity_IPVA,
                 num_car
             )
             val code = remote.createCars(token, carRequest).code()

@@ -29,6 +29,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.appfrotas.ui.theme.Purple40
+import com.example.appfrotas.ui.theme.Purple60
 import com.example.appfrotas.view.screens.user.UserScreen
 import com.example.appfrotas.view.screens.drawerItem.DrawerItem
 import com.example.appfrotas.view.screens.frotas.FrotaRegisterScreen
@@ -36,6 +38,7 @@ import com.example.appfrotas.view.screens.movements.ArrivalScreen
 import com.example.appfrotas.view.screens.movements.ExitScreen
 import com.example.appfrotas.view.screens.frotas.FrotasScreen
 import com.example.appfrotas.view.screens.login.DoLogin
+import com.example.appfrotas.view.screens.movements.RequestScren
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -53,8 +56,7 @@ fun MainScreen() {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(30.dp)
-                            .background(Color.Gray),
+                            .height(30.dp),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
@@ -66,6 +68,7 @@ fun MainScreen() {
                     Spacer(Modifier.padding(16.dp))
 
                     DrawerItem("Home") { navController.navigate("home") }
+                    DrawerItem("Solicitações") { navController.navigate("request") }
                     DrawerItem("Frotas") { navController.navigate("frotas") }
                     DrawerItem("Usuário") { navController.navigate("user") }
                 }
@@ -77,13 +80,16 @@ fun MainScreen() {
             topBar = {
                 TopAppBar(
                     title = { Text("Meu App") },
+                    modifier = Modifier.background(Purple60),
                     navigationIcon = {
-                        IconButton(onClick = {
-                            scope.launch {
-                                if (drawerState.isClosed) drawerState.open()
-                                else drawerState.close()
-                            }
-                        }) {
+                        IconButton(
+                            onClick = {
+                                scope.launch {
+                                    if (drawerState.isClosed) drawerState.open()
+                                    else drawerState.close()
+                                }
+                            },
+                        ) {
                             Icon(Icons.Default.Menu, contentDescription = "Menu")
                         }
                     }
@@ -97,6 +103,7 @@ fun MainScreen() {
             ) {
                 composable("home") { HomeScreen(navController) }
                 composable("frotas") { FrotasScreen(navController) }
+                composable("request") { RequestScren(navController) }
                 composable("user") { UserScreen() }
                 composable("created_exit") { ExitScreen(navController) }
                 composable("created_arrival") { ArrivalScreen(navController) }

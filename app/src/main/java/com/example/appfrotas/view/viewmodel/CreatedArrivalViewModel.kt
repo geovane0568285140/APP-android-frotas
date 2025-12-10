@@ -3,8 +3,8 @@ package com.example.appfrotas.view.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitsNullArrivalDto
-import com.example.appfrotas.ServiceApp.remote.repository.ArrivalRepository
-import com.example.appfrotas.ServiceApp.remote.repository.ExitRepository
+import com.example.appfrotas.ServiceApp.remote.service.ArrivalService
+import com.example.appfrotas.ServiceApp.remote.service.ExitService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -15,15 +15,15 @@ class
 
 CreatedArrivalViewModel @Inject constructor(): ViewModel() {
 
-    private val exitRepository = ExitRepository()
-    private val arrivalRepository = ArrivalRepository()
+    private val exitService = ExitService()
+    private val arrivalRepository = ArrivalService()
     private val _exitsWithoutArrival = MutableStateFlow<List<ExitsNullArrivalDto>>(emptyList())
 
     val exitsWithoutArrival: MutableStateFlow<List<ExitsNullArrivalDto>> = _exitsWithoutArrival
 
     fun getExitsWithoutArrival(){
         viewModelScope.launch {
-            _exitsWithoutArrival.value = exitRepository.findExitsWithoutArrival().body()!!
+            _exitsWithoutArrival.value = exitService.findExitsWithoutArrival().body()!!
         }
     }
 

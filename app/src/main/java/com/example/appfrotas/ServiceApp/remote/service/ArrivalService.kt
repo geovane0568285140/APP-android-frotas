@@ -1,22 +1,16 @@
-package com.example.appfrotas.ServiceApp.remote.repository
+package com.example.appfrotas.ServiceApp.remote.service
 
 import android.util.Log
 import com.example.appfrotas.ServiceApp.remote.DTOs.Request.ArrivalRequestDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ArrivalResponseDto
 import com.example.appfrotas.ServiceApp.remote.RetrofitClient
 import com.example.appfrotas.ServiceApp.remote.TokenResponseAuth
-import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.ArrivalService
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.ResponseBody
-import okhttp3.ResponseBody.Companion.toResponseBody
-import okhttp3.internal.http2.ErrorCode
-import okhttp3.internal.http2.Http2
+import com.example.appfrotas.ServiceApp.remote.retrofitRepository.ArrivalRepository
 import retrofit2.Response
-import retrofit2.http.HTTP
 
-class ArrivalRepository {
+class ArrivalService {
 
-    private val remote = RetrofitClient.getService(ArrivalService::class.java)
+    private val remote = RetrofitClient.getService(ArrivalRepository::class.java)
 
 
     suspend fun findArrivals(): Response<List<ArrivalResponseDto>> {

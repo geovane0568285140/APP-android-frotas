@@ -3,15 +3,12 @@ package com.example.appfrotas.view.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.appfrotas.ServiceApp.local.Converters
-import com.example.appfrotas.ServiceApp.remote.repository.CarRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.example.appfrotas.ServiceApp.remote.service.CarService
 import kotlinx.coroutines.launch
-import java.time.LocalDateTime
-import javax.inject.Inject
 
 class FrotasRegisterViewModel : ViewModel() {
 
-    private val repository = CarRepository()
+    private val repository = CarService()
 
     fun createCar(
         license_plate: String,
@@ -24,8 +21,8 @@ class FrotasRegisterViewModel : ViewModel() {
         fuel_type: String,
         current_mileage: String,
         num_crlv: String,
-        dateTime_licensing: String,
-        dateTime_maturity_IPVA: String,
+        date_licensing: String,
+        date_maturity_IPVA: String,
         num_car: Int
     ) {
         viewModelScope.launch {
@@ -40,19 +37,19 @@ class FrotasRegisterViewModel : ViewModel() {
                 fuel_type,
                 current_mileage,
                 num_crlv,
-                dateTime_licensing,
-                dateTime_maturity_IPVA,
+                date_licensing,
+                date_maturity_IPVA,
                 num_car
             )
         }
     }
 
-    fun converterMillisDateTime(millis: Long): String{
-        return Converters.Millis_DateTime(millis)
-    }
-
     fun converterMillisDate(millis: Long): String{
         return Converters.Milllis_Date(millis)
+    }
+
+    fun converter_ddMMyyyy__yyyyMMdd(date: String): String{
+        return Converters.formatterToApi(date)
     }
     /*
      String license_plate,

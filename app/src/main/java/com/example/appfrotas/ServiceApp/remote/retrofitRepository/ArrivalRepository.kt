@@ -1,4 +1,4 @@
-package com.example.appfrotas.ServiceApp.remote.serviceRetrofit
+package com.example.appfrotas.ServiceApp.remote.retrofitRepository
 
 import com.example.appfrotas.ServiceApp.remote.DTOs.Request.ArrivalRequestDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ArrivalResponseDto
@@ -8,7 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 
-interface ArrivalService {
+interface ArrivalRepository {
 
     @GET("arrival/get")
     suspend fun getArrivals(@Header("Authorization") token: String?): Response<List<ArrivalResponseDto>>

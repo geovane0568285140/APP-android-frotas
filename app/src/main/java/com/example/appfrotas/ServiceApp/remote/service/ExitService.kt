@@ -1,19 +1,17 @@
-package com.example.appfrotas.ServiceApp.remote.repository
+package com.example.appfrotas.ServiceApp.remote.service
 
 import android.util.Log
-import androidx.lifecycle.viewModelScope
 import com.example.appfrotas.ServiceApp.remote.DTOs.Request.ExitCreateRequestDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitResponseDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitsNullArrivalDto
 import com.example.appfrotas.ServiceApp.remote.RetrofitClient
 import com.example.appfrotas.ServiceApp.remote.TokenResponseAuth
-import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.ExitService
-import kotlinx.coroutines.launch
+import com.example.appfrotas.ServiceApp.remote.retrofitRepository.ExitRepository
 import retrofit2.Response
 
-class ExitRepository {
+class ExitService {
 
-    private val remote = RetrofitClient.getService(ExitService::class.java)
+    private val remote = RetrofitClient.getService(ExitRepository::class.java)
 
 
     suspend fun findExits(): Response<List<ExitResponseDto>> {

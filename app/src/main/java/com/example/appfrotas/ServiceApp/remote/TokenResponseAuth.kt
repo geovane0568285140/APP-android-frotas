@@ -6,8 +6,7 @@ import com.example.appfrotas.ServiceApp.Constants
 import com.example.appfrotas.ServiceApp.SharedPreferenceCripty.SharedPreference
 import com.example.appfrotas.ServiceApp.local.Converters
 import com.example.appfrotas.ServiceApp.remote.DTOs.Request.AuthRequestDto
-import com.example.appfrotas.ServiceApp.remote.RetrofitClient
-import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.AuthService
+import com.example.appfrotas.ServiceApp.remote.retrofitRepository.AuthRepository
 import java.time.Duration
 import java.time.LocalDateTime
 
@@ -56,7 +55,7 @@ class TokenResponseAuth() {
         val password = SharedPreference.getString(const.keyPassword, "")
 
         try {
-            val service = RetrofitClient.Companion.getService(AuthService::class.java)
+            val service = RetrofitClient.Companion.getService(AuthRepository::class.java)
             val response = service.auth(AuthRequestDto(name!!, password!!))
             SharedPreference.createdString(const.keyToken, response.body()?.token ?: "")
 

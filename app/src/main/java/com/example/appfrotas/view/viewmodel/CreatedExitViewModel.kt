@@ -3,10 +3,8 @@ package com.example.appfrotas.view.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.CarsResponseDto
-import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitsNullArrivalDto
-import com.example.appfrotas.ServiceApp.remote.repository.ArrivalRepository
-import com.example.appfrotas.ServiceApp.remote.repository.CarRepository
-import com.example.appfrotas.ServiceApp.remote.repository.ExitRepository
+import com.example.appfrotas.ServiceApp.remote.service.CarService
+import com.example.appfrotas.ServiceApp.remote.service.ExitService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -14,8 +12,8 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class CreatedExitViewModel : ViewModel() {
 
-    private val exitRepository = ExitRepository()
-    private val carRepository = CarRepository()
+    private val exitService = ExitService()
+    private val carRepository = CarService()
     private val _cars = MutableStateFlow<List<CarsResponseDto>>(emptyList())
 
     val cars: MutableStateFlow<List<CarsResponseDto>> = _cars
@@ -33,7 +31,7 @@ class CreatedExitViewModel : ViewModel() {
         observation: String? = null
     ) {
         viewModelScope.launch {
-            exitRepository.createExit(km_exit, fk_car_frota, fk_car_request, observation)
+            exitService.createExit(km_exit, fk_car_frota, fk_car_request, observation)
         }
     }
 

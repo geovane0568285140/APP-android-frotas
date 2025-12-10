@@ -3,6 +3,7 @@ package com.example.appfrotas.ServiceApp.local
 import androidx.room.TypeConverter
 import com.example.appfrotas.ServiceApp.Constants
 import java.time.Instant
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -40,11 +41,11 @@ class Converters {
             return date.format(formatter)
         }
 
-        fun Millis_DateTime(millis: Long): String {
-            return Instant.ofEpochMilli(millis)
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime()
-                .toString()
+        fun formatterToApi(date: String): String {
+            val inputFormatter = DateTimeFormatter.ofPattern(Constants.DateFormatter.date)
+            val outPutFormatter = DateTimeFormatter.ofPattern(Constants.DateFormatter.localDate)
+
+            return LocalDate.parse(date, inputFormatter).format(outPutFormatter)
         }
 
     }

@@ -1,6 +1,4 @@
-package com.example.appfrotas.ServiceApp.remote.serviceRetrofit
-
-import retrofit2.http.POST
+package com.example.appfrotas.ServiceApp.remote.retrofitRepository
 
 interface UserService {
 

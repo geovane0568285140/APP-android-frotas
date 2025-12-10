@@ -9,6 +9,8 @@ class Constants private constructor() {
 
         const val date = "dd/MM/yyyy"
 
+        const val localDate = "yyyy-MM-dd"
+
     }
 
     object SharedPreference {

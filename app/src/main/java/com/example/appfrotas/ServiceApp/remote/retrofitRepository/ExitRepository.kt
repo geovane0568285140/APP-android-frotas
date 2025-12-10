@@ -1,4 +1,4 @@
-package com.example.appfrotas.ServiceApp.remote.serviceRetrofit
+package com.example.appfrotas.ServiceApp.remote.retrofitRepository
 
 import com.example.appfrotas.ServiceApp.remote.DTOs.Request.ExitCreateRequestDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.ExitResponseDto
@@ -9,7 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 
-interface ExitService {
+interface ExitRepository {
 
     @GET("exit/get")
     suspend fun getExtis(@Header("Authorization") token: String?):  Response<List<ExitResponseDto>>

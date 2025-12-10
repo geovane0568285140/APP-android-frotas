@@ -1,4 +1,4 @@
-package com.example.appfrotas.ServiceApp.remote.serviceRetrofit
+package com.example.appfrotas.ServiceApp.remote.retrofitRepository
 
 import com.example.appfrotas.ServiceApp.remote.DTOs.Request.CarsCreateRequestDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.CarsResponseDto
@@ -8,7 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 
-interface CarService {
+interface CarRepository {
 
     @GET("cars/getCarsUuidNumCars")
     suspend fun getCars(@Header("Authorization") token: String): Response<List<CarsResponseDto>>

@@ -1,6 +1,5 @@
 package com.example.appfrotas.view.viewmodel
 
-import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,7 +8,7 @@ import com.example.appfrotas.ServiceApp.SharedPreferenceCripty.SharedPreference
 import com.example.appfrotas.ServiceApp.local.Converters
 import com.example.appfrotas.ServiceApp.remote.DTOs.Request.AuthRequestDto
 import com.example.appfrotas.ServiceApp.remote.RetrofitClient
-import com.example.appfrotas.ServiceApp.remote.serviceRetrofit.AuthService
+import com.example.appfrotas.ServiceApp.remote.retrofitRepository.AuthRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -23,7 +22,7 @@ class LoginViewModel : ViewModel() {
     fun login(name: String, password: String) {
         viewModelScope.launch {
             try {
-                val service = RetrofitClient.getService(AuthService::class.java)
+                val service = RetrofitClient.getService(AuthRepository::class.java)
                 val response = service.auth(AuthRequestDto      (name, password))
 
                 if (response.isSuccessful) {
