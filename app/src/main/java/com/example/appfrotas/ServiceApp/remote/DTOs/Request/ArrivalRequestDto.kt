@@ -8,7 +8,7 @@ data class ArrivalRequestDto(
     val fk_exit: String,
 
     @SerializedName("observation")
-    val observation: String,
+    val observation: String?,
 
     @SerializedName("km_arrival")
     val km_arrival: Int

@@ -24,12 +24,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.appfrotas.ui.theme.Purple40
 import com.example.appfrotas.ui.theme.Purple60
 import com.example.appfrotas.view.screens.user.UserScreen
 import com.example.appfrotas.view.screens.drawerItem.DrawerItem
@@ -37,7 +35,7 @@ import com.example.appfrotas.view.screens.frotas.FrotaRegisterScreen
 import com.example.appfrotas.view.screens.movements.ArrivalScreen
 import com.example.appfrotas.view.screens.movements.ExitScreen
 import com.example.appfrotas.view.screens.frotas.FrotasScreen
-import com.example.appfrotas.view.screens.login.DoLogin
+import com.example.appfrotas.view.screens.movements.CreatedRequest
 import com.example.appfrotas.view.screens.movements.RequestScren
 import kotlinx.coroutines.launch
 
@@ -104,6 +102,7 @@ fun MainScreen() {
                 composable("home") { HomeScreen(navController) }
                 composable("frotas") { FrotasScreen(navController) }
                 composable("request") { RequestScren(navController) }
+                composable("created_request") { CreatedRequest(navController) }
                 composable("user") { UserScreen() }
                 composable("created_exit") { ExitScreen(navController) }
                 composable("created_arrival") { ArrivalScreen(navController) }

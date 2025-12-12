@@ -41,10 +41,13 @@ class ExitService {
     ): Int {
         val token = "Bearer " + TokenResponseAuth.getToken()
         var code = 501;
+        var obs: String? = null
+        if (observation != "" && observation != null)
+            obs = observation
         try {
             code = remote.createExits(
                 token,
-                ExitCreateRequestDto(fk_car_frota, fk_car_request, observation, km_exit)
+                ExitCreateRequestDto(fk_car_frota, fk_car_request, obs, km_exit)
             ).code()
             if (code >= 200 && code <= 299)
                 return code

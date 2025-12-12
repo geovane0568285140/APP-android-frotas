@@ -23,15 +23,19 @@ class ArrivalService {
         }
     }
 
-    suspend fun createArrivals(fk_exit: String, observation: String, km_arrival: Int): Int{
+    suspend fun createArrivals(fk_exit: String, observation: String, km_arrival: Int): Int {
         var code = 501
         try {
             val token = "Bearer " + TokenResponseAuth.getToken()
-            code = remote.createArrival(token, ArrivalRequestDto(fk_exit, observation, km_arrival)).code()
+            var obs: String? = null
+            if (observation != "")
+                obs = observation
+            code = remote.createArrival(token, ArrivalRequestDto(fk_exit, obs, km_arrival))
+                .code()
             if (code >= 200 && code <= 299)
                 return code
             else throw Exception("Return the of code error")
-        } catch (e: Exception){
+        } catch (e: Exception) {
             Log.e("ERROR method createArrivals in class ArrivalRepository", "$e $code")
             return code
         }
