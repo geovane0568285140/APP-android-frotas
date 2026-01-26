@@ -7,6 +7,8 @@ class Constants private constructor() {
 
         const val dateTime = "dd-MM-yyyy HH:mm"
 
+        const val localDateTime = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+
         const val date = "dd/MM/yyyy"
 
         const val localDate = "yyyy-MM-dd"

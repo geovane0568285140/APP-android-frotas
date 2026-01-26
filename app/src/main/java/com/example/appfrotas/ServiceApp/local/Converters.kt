@@ -48,6 +48,13 @@ class Converters {
             return LocalDate.parse(date, inputFormatter).format(outPutFormatter)
         }
 
+        fun localDateTime_LocalDate(localDateTime: String): String{
+            val outPutFormatter = DateTimeFormatter.ofPattern(Constants.DateFormatter.date)
+
+            return LocalDate.parse(localDateTime.substring(0, 10)).format(outPutFormatter)
+        }
+
+
     }
 
 }

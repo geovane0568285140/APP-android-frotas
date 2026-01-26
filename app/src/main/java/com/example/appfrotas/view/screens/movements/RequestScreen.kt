@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,12 +17,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddTask
 import androidx.compose.material.icons.filled.Alarm
+import androidx.compose.material.icons.filled.FilterAlt
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -46,8 +49,10 @@ import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.LifecycleStartEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.appfrotas.ServiceApp.local.Converters
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.CarRequestResponseDto
 import com.example.appfrotas.ui.theme.Gray
+import com.example.appfrotas.ui.theme.Purple40
 import com.example.appfrotas.ui.theme.verdeSicred
 import com.example.appfrotas.view.screens.drawerItem.AlertDialogApproveOrDisapprove
 import com.example.appfrotas.view.viewmodel.RequestViewModel
@@ -60,7 +65,7 @@ fun RequestScren(navController: NavController) {
 
     var share by remember { mutableStateOf("") }
     val openDialog = remember { mutableStateOf(false) }
-
+    val uuid = remember {mutableStateOf("")}
 
     LifecycleResumeEffect(Unit) {
         viewModel.getRequestALL()
@@ -91,6 +96,24 @@ fun RequestScren(navController: NavController) {
             )
 
 
+            Row(
+                Modifier
+                    .padding(horizontal = 12.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
+            ) {
+                Icon(
+                    imageVector = Icons.Default.FilterAlt,
+                    contentDescription = "Filter",
+                    tint = Color.White,
+                    modifier = Modifier
+                        .background(Purple40, RoundedCornerShape(18.dp))
+                        .width(72.dp)
+                        .height(34.dp)
+                )
+            }
+
+
             Spacer(
                 modifier = Modifier
                     .width(16.dp)
@@ -108,9 +131,12 @@ fun RequestScren(navController: NavController) {
                         .border(1.4.dp, Gray), verticalAlignment = Alignment.CenterVertically
                 ) {
 
-                    Text(text = data.n_num.toString(), modifier = Modifier.padding(4.dp))
+                    Text(text = data.n_mov.toString(), modifier = Modifier.padding(4.dp))
 
-                    Text(text = data.requested_at, modifier = Modifier.padding(4.dp))
+                    Text(
+                        text = Converters.localDateTime_LocalDate(data.requested_at),
+                        modifier = Modifier.padding(4.dp)
+                    )
 
                     Spacer(modifier = Modifier.weight(1f))
 
@@ -153,24 +179,6 @@ fun RequestScren(navController: NavController) {
                         )
                     }
 
-                    when {
-                        openDialog.value -> {
-                            AlertDialogApproveOrDisapprove(
-                                onDismissRequest = {
-                                    viewModel.update(data.uuid, status = "Reprovado")
-                                    openDialog.value = false
-                                },
-                                onConfirmation = {
-                                    viewModel.update(data.uuid, status = "Aprovado")
-                                    openDialog.value = false
-                                },
-                                dialogTitle = "TESTE",
-                                dialogText = "TESTE",
-                                icon = Icons.Default.Info
-                            )
-                        }
-                    }
-
                     Box(
                         modifier = Modifier
                             .padding(start = 6.dp, top = 4.dp, bottom = 4.dp, end = 6.dp)
@@ -178,17 +186,39 @@ fun RequestScren(navController: NavController) {
                             .background(verdeSicred, CircleShape)
                             .clickable {
                                 openDialog.value = true
+                                uuid.value = data.uuid
                             },
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
-                            imageVector = Icons.Default.AddTask,
+                            imageVector = Icons.Default.Info,
                             contentDescription = "Aprovar",
                             tint = Color.Black,
                         )
                     }
                 }
             }
+
+            when {
+                openDialog.value -> {
+                    AlertDialogApproveOrDisapprove(
+                        onDismissRequest = {
+                            viewModel.update(uuid.value, status = "Reprovado")
+                            viewModel.getRequestALL()
+                            openDialog.value = false
+                        },
+                        onConfirmation = {
+                            viewModel.update(uuid.value, status = "Aprovado")
+                            viewModel.getRequestALL()
+                            openDialog.value = false
+                        },
+                        dialogTitle = "TESTE",
+                        dialogText = "TESTE",
+                        icon = Icons.Default.Info
+                    )
+                }
+            }
+
         }
 
         Box(

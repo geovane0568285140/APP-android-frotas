@@ -1,9 +1,19 @@
 package com.example.appfrotas.ServiceApp.remote.DTOs.Response
 
+import com.google.gson.annotations.SerializedName
+
 data class CarRequestResponseDto(
+
+    @SerializedName("uuid")
     val uuid: String,
-    val n_num: Int,
+
+    @SerializedName("n_mov")
+    val n_mov: Int,
+
+    @SerializedName("requested_at")
     val requested_at: String,
+
+    @SerializedName("status")
     val status: String
 )
 
