@@ -13,7 +13,9 @@ fun AlertDialogApproveOrDisapprove(
     onDismissRequest: () -> Unit,
     onConfirmation: () -> Unit,
     dialogTitle: String,
-    dialogText: String,
+    dialogTextOrigin: String,
+    dialogTextDestiantion: String,
+    dialogTextReason: String,
     icon: ImageVector
 ) {
 
@@ -25,7 +27,9 @@ fun AlertDialogApproveOrDisapprove(
             Text(text = dialogTitle)
         },
         text = {
-            Text(text = dialogText)
+            Text(text = "Local de saida: $dialogTextOrigin \n" +
+                    "Destino: $dialogTextDestiantion \n" +
+                    "razão: $dialogTextReason")
         },
         onDismissRequest = {
             onDismissRequest()
