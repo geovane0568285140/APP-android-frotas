@@ -41,7 +41,7 @@ class CarRequestService {
             return remote.getRequestWithNameFull("Bearer " + TokenResponseAuth.getToken(), UUID.fromString(uuidCarRequest))
         } catch (e: Exception){
             Log.e("ERROR in method getRequestALL", "Exception: $e")
-            return Response.success(404, CarRequestWithNameFullResponseDto(null, null, null, null, null, null, null))
+            return Response.success(404, CarRequestWithNameFullResponseDto("", "", "", "", "", "", ""))
         }
     }
     suspend fun findRequestFilterStatus(

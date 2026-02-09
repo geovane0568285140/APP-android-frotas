@@ -33,6 +33,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -202,6 +203,7 @@ fun RequestScren(navController: NavController) {
             when {
                 openDialog.value -> {
                     AlertDialogApproveOrDisapprove(
+                        uuid.value,
                         onDismissRequest = {
                             viewModel.update(uuid.value, status = "Reprovado")
                             viewModel.getRequestALL()
@@ -212,8 +214,6 @@ fun RequestScren(navController: NavController) {
                             viewModel.getRequestALL()
                             openDialog.value = false
                         },
-                        dialogTitle = "TESTE",
-                        dialogText = "TESTE",
                         icon = Icons.Default.Info
                     )
                 }
