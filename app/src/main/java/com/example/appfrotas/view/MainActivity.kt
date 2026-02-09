@@ -29,15 +29,16 @@ class MainActivity : ComponentActivity() {
             val mainViewModel: ActivityViewModel by viewModels()
             val loginViewModel: LoginViewModel by viewModels()
 
-            LaunchedEffect(Unit) {
-                TokenResponseAuth.validityToken()
-            }
-
             mainViewModel.instanceSharedPreference(
                 applicationContext.getSharedPreferences(
                     Constants.SharedPreference.file_user.file_name_user_data, Context.MODE_PRIVATE
                 )
             )
+
+            LaunchedEffect(Unit) {
+                TokenResponseAuth.validityToken()
+            }
+
 
             if (mainViewModel.verifyIsLogged())
                 loginViewModel.setTrueIsLoggedIn()
