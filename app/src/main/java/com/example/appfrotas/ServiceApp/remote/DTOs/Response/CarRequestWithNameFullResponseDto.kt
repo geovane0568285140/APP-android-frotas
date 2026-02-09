@@ -6,25 +6,25 @@ import java.util.UUID
 data class CarRequestWithNameFullResponseDto(
 
     @SerializedName("uuid")
-    val uuid: String,
+    val uuid: String?,
 
     @SerializedName("name_user")
-    val name_user: String,
+    val name_user: String?,
 
     @SerializedName("origin")
-    val origin: String,
+    val origin: String?,
 
     @SerializedName("destination")
-    val destination: String,
+    val destination: String?,
 
     @SerializedName("reason")
-    val reason: String,
+    val reason: String?,
 
     @SerializedName("requested_at")
-    val requested_at: String,
+    val requested_at: String?,
 
     @SerializedName("status")
-    val status: String
+    val status: String?
 
     /* UUID uuid,
     String name_user,
