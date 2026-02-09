@@ -60,8 +60,8 @@ fun HomeScreen(navController: NavController) {
     }
 
 
-    val exits: List<ExitResponseDto> by homeViewModel.exits.collectAsState()
-    val arrivals: List<ArrivalResponseDto> by homeViewModel.arrivals.collectAsState()
+    val exits: List<ExitResponseDto>? by homeViewModel.exits.collectAsState()
+    val arrivals: List<ArrivalResponseDto>? by homeViewModel.arrivals.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -128,7 +128,7 @@ fun HomeScreen(navController: NavController) {
                 Text("Chegadas", style = MaterialTheme.typography.titleMedium)
                 Spacer(modifier = Modifier.height(8.dp))
 
-                arrivals.forEach { data ->
+                arrivals?.forEach { data ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.padding(vertical = 4.dp)
@@ -164,7 +164,7 @@ fun HomeScreen(navController: NavController) {
                     )
                 )
 
-                exits.forEach { data ->
+                exits?.forEach { data ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.padding(vertical = 4.dp)

@@ -3,6 +3,7 @@ package com.example.appfrotas.ServiceApp.remote.retrofitRepository
 import com.example.appfrotas.ServiceApp.remote.DTOs.Request.CarRequestCreateRequestDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Request.CarRequestUpdateRequestDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.CarRequestResponseDto
+import com.example.appfrotas.ServiceApp.remote.DTOs.Response.CarRequestWithNameFullResponseDto
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -28,6 +29,12 @@ interface RequestRepository {
         @QueryMap params: Map<String, String?>
     ): Response<List<CarRequestResponseDto>>
 
+    @GET("requests/{uuid}")
+    suspend fun getRequestWithNameFull(
+        @Header("Authorization") token: String,
+        @Path("uuid") uuidRequest: UUID
+    ): Response<CarRequestWithNameFullResponseDto>
+
     @PUT("requests/update/{uuid}")
     suspend fun updateRequest(
         @Header("Authorization") token: String,
@@ -36,6 +43,9 @@ interface RequestRepository {
     ): Response<Unit>
 
     @POST("requests/create")
-    suspend fun create(@Header("Authorization") token: String, @Body request: CarRequestCreateRequestDto): Response<Unit>
+    suspend fun create(
+        @Header("Authorization") token: String,
+        @Body request: CarRequestCreateRequestDto
+    ): Response<Unit>
 
 }
