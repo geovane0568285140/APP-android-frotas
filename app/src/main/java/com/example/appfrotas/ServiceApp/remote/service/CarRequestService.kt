@@ -6,6 +6,7 @@ import com.example.appfrotas.ServiceApp.SharedPreferenceCripty.SharedPreference
 import com.example.appfrotas.ServiceApp.remote.DTOs.Request.CarRequestCreateRequestDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Request.CarRequestUpdateRequestDto
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.CarRequestResponseDto
+import com.example.appfrotas.ServiceApp.remote.DTOs.Response.CarRequestWithNameFullResponseDto
 import com.example.appfrotas.ServiceApp.remote.RetrofitClient
 import com.example.appfrotas.ServiceApp.remote.TokenResponseAuth
 import com.example.appfrotas.ServiceApp.remote.retrofitRepository.RequestRepository
@@ -35,6 +36,14 @@ class CarRequestService {
         }
     }
 
+    suspend fun findRequestWithNameFull(uuidCarRequest: String): Response<CarRequestWithNameFullResponseDto> {
+        try {
+            return remote.getRequestWithNameFull("Bearer " + TokenResponseAuth.getToken(), UUID.fromString(uuidCarRequest))
+        } catch (e: Exception){
+            Log.e("ERROR in method getRequestALL", "Exception: $e")
+            return Response.success(404, CarRequestWithNameFullResponseDto(null, null, null, null, null, null, null))
+        }
+    }
     suspend fun findRequestFilterStatus(
         page: String? = null,
         size: String? = null,
