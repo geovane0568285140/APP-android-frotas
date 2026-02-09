@@ -16,21 +16,21 @@ class HomeViewModel @Inject constructor(): ViewModel() {
 
     private val exitService = ExitService()
     private val arrivalepository = ArrivalService()
-    private val _exits = MutableStateFlow<List<ExitResponseDto>>(emptyList())
-    private val _arrivals = MutableStateFlow<List<ArrivalResponseDto>>(emptyList())
+    private val _exits = MutableStateFlow<List<ExitResponseDto>?>(emptyList())
+    private val _arrivals = MutableStateFlow<List<ArrivalResponseDto>?>(emptyList())
 
-    val exits: MutableStateFlow<List<ExitResponseDto>> = _exits
-    val arrivals: MutableStateFlow<List<ArrivalResponseDto>> = _arrivals
+    val exits: MutableStateFlow<List<ExitResponseDto>?> = _exits
+    val arrivals: MutableStateFlow<List<ArrivalResponseDto>?> = _arrivals
 
     fun getExits() {
         viewModelScope.launch {
-            _exits.value = exitService.findExits().body()!!
+            _exits.value = exitService.findExits().body()
         }
     }
 
     fun getArrivals() {
         viewModelScope.launch {
-            _arrivals.value = arrivalepository.findArrivals().body()!!
+            _arrivals.value = arrivalepository.findArrivals().body()
         }
     }
 

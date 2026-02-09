@@ -31,7 +31,6 @@ class TokenResponseAuth() {
 
             val duration = Duration.between(localDateTimeToken, nowLocalDataTime)
             if (duration.toHours() >= 2) {
-
                 newToken()
                 /* val service = RetrofitClient.getService(AuthService::class.java)
                 val name =
