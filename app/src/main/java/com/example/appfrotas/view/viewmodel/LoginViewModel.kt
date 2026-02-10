@@ -18,6 +18,8 @@ import java.time.LocalDateTime
 class LoginViewModel : ViewModel() {
 
     private val _isLoggedIn = MutableStateFlow(false)
+
+    val dia1deixandoOgithubVerdinho: String? = null //Hoje fiquei o dia mechendo em criptografia de arquivos e keepass, ão tive tempo para mexer nesse projeto
     val isLoggedIn: StateFlow<Boolean> = _isLoggedIn
 
     fun login(name: String, password: String) {
