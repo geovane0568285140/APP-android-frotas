@@ -19,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,12 +28,26 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.compose.LifecycleResumeEffect
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.appfrotas.ServiceApp.remote.DTOs.Response.UsersNameResponseDto
 import com.example.appfrotas.ui.theme.Purple40
+import com.example.appfrotas.view.viewmodel.UserViewModel
 
 @Composable
 fun UserScreen() {
 
+    val viewModel: UserViewModel = viewModel()
+
     val listaTemp = listOf<String>("1", "2", "3", "4", "5")
+    LifecycleResumeEffect(Unit){
+        viewModel.getFirstName()
+        onPauseOrDispose {  }
+    }
+
+    val users: List<UsersNameResponseDto> by viewModel.users.collectAsState()
+
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
         var textSearch by remember { mutableStateOf("") }
 
@@ -53,7 +68,7 @@ fun UserScreen() {
             )
         }
 
-        listaTemp.forEach { data ->
+        users.forEach { data ->
             Row(modifier = Modifier.padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
                 Box(modifier = Modifier.size(36.dp).background(Purple40, CircleShape), contentAlignment = Alignment.Center) {
                     Icon(
@@ -62,7 +77,7 @@ fun UserScreen() {
                         tint = Color.White
                     )
                 }
-                Text(modifier = Modifier.padding(8.dp), text = data)
+                Text(modifier = Modifier.padding(8.dp), text = data.nameUser)
             }
         }
     }
