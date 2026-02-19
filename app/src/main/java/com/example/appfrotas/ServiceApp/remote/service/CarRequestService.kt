@@ -41,7 +41,7 @@ class CarRequestService {
             return remote.getRequestWithNameFull("Bearer " + TokenResponseAuth.getToken(), UUID.fromString(uuidCarRequest))
         } catch (e: Exception){
             Log.e("ERROR in method getRequestALL", "Exception: $e")
-            return Response.success(404, CarRequestWithNameFullResponseDto("", "", "", "", "", "", ""))
+            return Response.error(404, null);
         }
     }
     suspend fun findRequestFilterStatus(
@@ -82,14 +82,14 @@ class CarRequestService {
         reason: String?,
         status: String?,
         active: Boolean?
-    ): Int {
+    ): Response<CarRequestWithNameFullResponseDto> {
         try {
             val newCarRequest = CarRequestUpdateRequestDto(origin, destination, reason, status, active)
             val token = "Bearer " + TokenResponseAuth.getToken()
-            return remote.updateRequest(token, UUID.fromString(uuidCarRequest), newCarRequest).code()
+            return remote.updateRequest(token, UUID.fromString(uuidCarRequest), newCarRequest)
         } catch (e: Exception){
             Log.e("ERROR in method update", "exception: $e")
-            return Response.success(304).code()
+            return Response.error(303, null)
         }
     }
 

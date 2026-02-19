@@ -8,13 +8,13 @@ data class CarRequestResponseDto(
     val uuid: String,
 
     @SerializedName("n_mov")
-    val n_mov: Int,
+    var n_mov: Int,
 
     @SerializedName("requested_at")
-    val requested_at: String,
+    var requested_at: String,
 
     @SerializedName("status")
-    val status: String
+    var status: String
 )
 
 /* "uuid": "3bb9f3b3-357d-421a-9d69-2d31b6996ee2",

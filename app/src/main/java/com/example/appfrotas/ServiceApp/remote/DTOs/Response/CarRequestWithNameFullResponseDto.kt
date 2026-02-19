@@ -11,6 +11,9 @@ data class CarRequestWithNameFullResponseDto(
     @SerializedName("name_user")
     val name_user: String?,
 
+    @SerializedName("n_mov")
+    val n_mov: Int?,
+
     @SerializedName("origin")
     val origin: String?,
 

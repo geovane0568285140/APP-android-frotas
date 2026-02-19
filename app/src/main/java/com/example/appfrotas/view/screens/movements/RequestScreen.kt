@@ -206,12 +206,10 @@ fun RequestScren(navController: NavController) {
                         uuid.value,
                         onDismissRequest = {
                             viewModel.update(uuid.value, status = "Reprovado")
-                            viewModel.getRequestALL()
                             openDialog.value = false
                         },
                         onConfirmation = {
                             viewModel.update(uuid.value, status = "Aprovado")
-                            viewModel.getRequestALL()
                             openDialog.value = false
                         },
                         icon = Icons.Default.Info

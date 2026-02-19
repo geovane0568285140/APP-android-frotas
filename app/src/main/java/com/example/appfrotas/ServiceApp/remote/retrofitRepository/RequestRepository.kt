@@ -40,7 +40,7 @@ interface RequestRepository {
         @Header("Authorization") token: String,
         @Path("uuid") uuidRequest: UUID,
         @Body request: CarRequestUpdateRequestDto
-    ): Response<Unit>
+    ): Response<CarRequestWithNameFullResponseDto>
 
     @POST("requests/create")
     suspend fun create(
