@@ -10,12 +10,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,15 +26,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.appfrotas.ServiceApp.remote.DTOs.Response.UsersNameResponseDto
 import com.example.appfrotas.ui.theme.Purple40
 import com.example.appfrotas.view.viewmodel.UserViewModel
 
 @Composable
-fun UserScreen() {
+fun UserScreen(navController: NavHostController) {
 
     val viewModel: UserViewModel = viewModel()
 
@@ -60,7 +58,7 @@ fun UserScreen() {
                 .fillMaxWidth()
         )
 
-        Button(onClick = {}) {
+        Button(onClick = {navController.navigate("created-user")}) {
             Icon(
                 imageVector = Icons.Filled.Add,
                 contentDescription = "Add",

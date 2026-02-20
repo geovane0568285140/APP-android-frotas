@@ -36,6 +36,7 @@ import com.example.appfrotas.view.screens.movements.ArrivalScreen
 import com.example.appfrotas.view.screens.movements.ExitScreen
 import com.example.appfrotas.view.screens.frotas.FrotasScreen
 import com.example.appfrotas.view.screens.movements.CreatedRequest
+import com.example.appfrotas.view.screens.movements.CreatedUserScreen
 import com.example.appfrotas.view.screens.movements.RequestScren
 import kotlinx.coroutines.launch
 
@@ -103,10 +104,11 @@ fun MainScreen() {
                 composable("frotas") { FrotasScreen(navController) }
                 composable("request") { RequestScren(navController) }
                 composable("created_request") { CreatedRequest(navController) }
-                composable("user") { UserScreen() }
+                composable("user") { UserScreen(navController) }
                 composable("created_exit") { ExitScreen(navController) }
                 composable("created_arrival") { ArrivalScreen(navController) }
                 composable("register-frotas") { FrotaRegisterScreen(navController) }
+                composable("created-user") { CreatedUserScreen(navController) }
             }
         }
     }
